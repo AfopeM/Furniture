@@ -31,7 +31,7 @@ export default function Home() {
           </Link>
         </div>
       </Hero>
-      <main className=""></main>
+      <main className="space-y-16"></main>
     </>
   );
 }

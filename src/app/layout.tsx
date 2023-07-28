@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Oswald, Fira_Sans_Condensed } from "next/font/google";
+import { Footer } from "@/components";
 
 const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
 const fira = Fira_Sans_Condensed({
@@ -20,7 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body suppressHydrationWarning={true} className={`${oswald.variable} ${fira.variable}bg-brand-light 
       font-oswald text-brand-light min-h-screen`}>
-        {children}</body>
+        {children}
+        <Footer/>
+        </body>
     </html>
   );
 }
