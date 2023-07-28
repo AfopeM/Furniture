@@ -5,9 +5,9 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useState, useEffect, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faXmark,
   faBagShopping,
   faBarsStaggered,
-  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav() {
@@ -55,7 +55,9 @@ export default function Nav() {
       {/* LOGO */}
       <Link
         href="/"
-        className={`brand-duration-300 group col-start-2 row-start-1 
+        className={`${
+          currentPage === "/" ? "text-brand-light" : "text-brand-gray"
+        } brand-duration-500 group col-start-2 row-start-1 
         justify-self-center text-2xl font-bold tracking-tight 
         hover:text-brand-light md:col-start-1 md:justify-self-start 
         md:text-3xl`}
@@ -64,7 +66,7 @@ export default function Nav() {
         <span
           className={`${
             currentPage === "/" ? " opacity-100" : "opacity-0"
-          } brand-duration-300 inline-block h-2 w-2 rounded-sm
+          } brand-duration-500 inline-block h-2 w-2 rounded-sm
           bg-brand-base group-hover:opacity-100`}
         />
       </Link>
@@ -103,9 +105,7 @@ export default function Nav() {
           href="/"
           onClick={() => setOpenMenu(false)}
           className={`${
-            currentPage === "/"
-              ? "text-brand-light"
-              : "text-brand-light text-opacity-50"
+            currentPage === "/" ? "text-brand-light" : "text-brand-gray"
           } brand-duration-500 group mt-20 text-3xl font-bold tracking-tight 
           hover:text-brand-light`}
         >
@@ -132,7 +132,7 @@ export default function Nav() {
                   className={`${
                     currentPage === route.path
                       ? "text-brand-light"
-                      : "text-brand-light text-opacity-50"
+                      : "text-brand-gray"
                   } brand-duration-500 tracking-wider hover:text-brand-light`}
                 >
                   {route.name}
@@ -162,7 +162,7 @@ export default function Nav() {
                 className={`${
                   currentPage === route.path
                     ? "text-brand-light"
-                    : "text-brand-light text-opacity-50"
+                    : "text-brand-gray"
                 } brand-duration-500 tracking-wider hover:text-brand-light`}
               >
                 {route.name}
