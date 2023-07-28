@@ -7,6 +7,10 @@
     @apply duration-300 ease-in-out;
   }
 
+  .brand-duration-500 {
+    @apply duration-500 ease-in-out;
+  }
+
   .brand-px {
     @apply px-8 md:px-16 lg:px-24 xl:px-36;
   }

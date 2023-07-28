@@ -10,7 +10,7 @@ export default function Hero() {
         alt="hero"
         sizes="80vw"
         src="/hero.webp"
-        className="object-cover opacity-25"
+        className="object-cover opacity-10"
       />
       <Nav />
       Hero

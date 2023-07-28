@@ -1,5 +1,8 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useMediaQuery } from "@mantine/hooks";
+import { useState, useEffect, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBagShopping,
@@ -8,11 +11,25 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav() {
+  const currentPage = usePathname();
+  const [openMenu, setOpenMenu] = useState(false);
+  const mediaQuery = useMediaQuery("(min-width:768px)");
+
   const routes = [
     { name: "shop", path: "/shop" },
     { name: "collection", path: "/collection" },
     { name: "about", path: "/about" },
   ];
+
+  function handleOpenMenu(value: SetStateAction<boolean>) {
+    setOpenMenu(value);
+  }
+
+  useEffect(() => {
+    if (mediaQuery) {
+      setOpenMenu(false);
+    }
+  }, [mediaQuery]);
 
   return (
     <nav
@@ -45,20 +62,94 @@ export default function Nav() {
       >
         Furniture{" "}
         <span
-          className={`brand-duration-300 inline-block h-2 w-2 rounded-sm
+          className={`${
+            currentPage === "/" ? " opacity-100" : "opacity-0"
+          } brand-duration-300 inline-block h-2 w-2 rounded-sm
           bg-brand-base group-hover:opacity-100`}
         />
       </Link>
 
       {/* MOBILE MENU BUTTON */}
       <button
+        onClick={() => handleOpenMenu(true)}
         className="brand-duration-500 relative col-start-3 justify-self-end 
         hover:scale-110 md:hidden"
       >
         <FontAwesomeIcon icon={faBarsStaggered} className="text-2xl" />
       </button>
 
-      {/* LABTOP MENU */}
+      {/* MOBILE MENU CONTENT */}
+      <aside
+        className={`${
+          openMenu ? "translate-x-0" : "translate-x-full"
+        } brand-duration-500 fixed left-0 top-0 flex h-screen w-full 
+        flex-col items-center gap-24 bg-brand-dark bg-opacity-80 p-8  
+        backdrop-blur-md md:translate-x-full`}
+      >
+        {/* CLOSE BTN */}
+        <button
+          onClick={() => handleOpenMenu(false)}
+          className="brand-duration-300 group flex h-6 w-6 items-center
+          justify-center self-end text-end hover:scale-110"
+        >
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="brand-ease text-2xl group-hover:text-brand-red"
+          />
+        </button>
+
+        {/* LOGO */}
+        <Link
+          href="/"
+          onClick={() => setOpenMenu(false)}
+          className={`${
+            currentPage === "/"
+              ? "text-brand-light"
+              : "text-brand-light text-opacity-50"
+          } brand-duration-500 group mt-20 text-3xl font-bold tracking-tight 
+          hover:text-brand-light`}
+        >
+          Furniture{" "}
+          <span
+            className={`${
+              currentPage === "/" ? "opacity-100" : "opacity-0"
+            } brand-duration-500 inline-block h-2 w-2 rounded-sm 
+          bg-brand-base group-hover:opacity-100`}
+          />
+        </Link>
+
+        {/* MENU */}
+        <ul
+          className="flex h-64 flex-col items-center justify-between 
+          text-lg"
+        >
+          {routes.map((route) => {
+            return (
+              <li key={route.name} className="group relative pb-1">
+                <Link
+                  href={route.path}
+                  onClick={() => handleOpenMenu(true)}
+                  className={`${
+                    currentPage === route.path
+                      ? "text-brand-light"
+                      : "text-brand-light text-opacity-50"
+                  } brand-duration-500 tracking-wider hover:text-brand-light`}
+                >
+                  {route.name}
+                </Link>
+                <span
+                  className={`${
+                    currentPage === route.path ? "opacity-100" : "opacity-0"
+                  } brand-duration-500 absolute -bottom-2 left-1/2 block h-2 w-2
+                   -translate-x-1/2 rounded-sm bg-brand-base group-hover:opacity-100`}
+                />
+              </li>
+            );
+          })}
+        </ul>
+      </aside>
+
+      {/* DESKTOP MENU */}
       <ul
         className="relative row-start-1 hidden w-full
         justify-between text-sm md:col-start-2 md:ml-4 md:flex"
@@ -68,12 +159,18 @@ export default function Nav() {
             <li key={route.name} className="group relative pb-1">
               <Link
                 href={route.path}
-                className={`brand-duration-300 tracking-wider hover:text-brand-light`}
+                className={`${
+                  currentPage === route.path
+                    ? "text-brand-light"
+                    : "text-brand-light text-opacity-50"
+                } brand-duration-500 tracking-wider hover:text-brand-light`}
               >
                 {route.name}
               </Link>
               <span
-                className={`brand-duration-300 absolute -bottom-2 left-1/2 h-2 w-2 
+                className={`${
+                  currentPage === route.path ? "opacity-100" : "opacity-0"
+                } brand-duration-500 absolute -bottom-2 left-1/2 h-2 w-2 
                 -translate-x-1/2 rounded-sm bg-brand-base 
                 group-hover:opacity-100`}
               />

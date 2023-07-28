@@ -20,7 +20,7 @@ module.exports = {
           border: "rgb(215,146,124)",
           lightgray: "rgb(211,210,211)",
           gray: "rgb(129,128,128)",
-          dark: "rgb(47,19,10)",
+          dark: "rgb(30,31,30)",
         },
       },
     },
