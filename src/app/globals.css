@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .brand-duration-300 {
+    @apply duration-300 ease-in-out;
+  }
+
+  .brand-px {
+    @apply px-8 md:px-16 lg:px-24 xl:px-36;
+  }
+}
