@@ -1,0 +1,74 @@
+{
+  "members": [
+    {
+      "image": "/about/ceo.webp",
+      "alt": "Photo by Shipman Northcutt on Unsplash",
+      "position": "Founder and CEO",
+      "name": "John Smith"
+    },
+    {
+      "image": "/about/chief_designer.webp",
+      "alt": "Photo by Prince Akachi on Unsplash",
+      "position": "Chief Designer",
+      "name": "Sadiki Akachi"
+    },
+    {
+      "image": "/about/technical_director.webp",
+      "alt": "Photo by Brian Tromp on Unsplash",
+      "position": "Technical Director",
+      "name": "Thomas Wilson"
+    },
+    {
+      "image": "/about/marketing_manager.webp",
+      "alt": "Photo by Tamara Bellis on Unsplash",
+      "position": "Marketing Manager",
+      "name": "Rachel Kim"
+    },
+    {
+      "image": "/about/operations_manager.webp",
+      "alt": "Photo by Darshan Patel on Unsplash",
+      "position": "Operations Manager",
+      "name": "David Brown"
+    },
+    {
+      "image": "/about/sales_director.webp",
+      "alt": "Photo by Brian Lundquist on Unsplash",
+      "position": "Sales Director",
+      "name": " Michael Johnson"
+    }
+  ],
+  "trustedby": [
+    {
+      "image": "/about/trustedby/burberrys.svg",
+      "alt": "Burberrys Logo"
+    },
+    {
+      "image": "/about/trustedby/chanel.svg",
+      "alt": "Chanel Logo"
+    },
+    {
+      "image": "/about/trustedby/dolce_gabbana.svg",
+      "alt": "Dolce Gabbana Logo"
+    },
+    {
+      "image": "/about/trustedby/hugo_boss.svg",
+      "alt": "Hugo Boss Logo"
+    },
+    {
+      "image": "/about/trustedby/ray_ban.svg",
+      "alt": "Ray Ban Logo"
+    },
+    {
+      "image": "/about/trustedby/the_north_face.svg",
+      "alt": "The North Face Logo"
+    },
+    {
+      "image": "/about/trustedby/tiffany_co.svg",
+      "alt": "Tiffany Co Logo"
+    },
+    {
+      "image": "/about/trustedby/vogue.svg",
+      "alt": "Vogue Logo"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "collections": [
+    {
+      "title": "Kitchen Collection",
+      "desc": "Our kitchen collection is designed with both style and functionality in mind. Each piece is handcrafted using the finest materials and expert techniques to create a space that is both beautiful and practical.",
+      "image": "/collection/collection_kitchen.webp",
+      "alt": "Photo of kitchen by Aaron Huber on Unsplash"
+    },
+    {
+      "title": "Bedroom Collection",
+      "desc": "Our bedroom collection offers the ultimate in luxury and comfort. Each piece is carefully crafted using the highest quality materials and expert techniques to create a space that is both elegant and inviting.",
+      "image": "/collection/collection_bedroom.webp",
+      "alt": "Photo of bedroom by Edelle Bruton on Unsplash"
+    },
+    {
+      "title": "Office Collection",
+      "desc": "Our brand offers a stunning office collection, featuring a range of elegantly crafted pieces that bring comfort to any workspace. From sleek executive desks to ergonomic chairs, that combine functionality and style.",
+      "image": "/collection/collection_office.webp",
+      "alt": "Photo of office by Bench Accounting on Unsplash"
+    },
+    {
+      "title": "Living Room Collection",
+      "desc": "Our living room collection offers a range of styles, from sleek and modern to classic and traditional. Each piece is expertly crafted using the finest materials to create a space that is both comfortable and stylish.",
+      "image": "/collection/collection_living_room.webp",
+      "alt": "Photo of living room by Daniel Barnes on Unsplash"
+    }
+  ],
+
+  "blogs": [
+    {
+      "title": "The Art of Mixing Modern and Traditional Styles in Your Home",
+      "alt": "Photo by Vincent Wachowiak on Unsplash"
+    },
+    {
+      "title": "Maximizing Small Spaces: Design Ideas for Cozy Homes",
+      "alt": "Photo by Jemima Whyles on Unsplash"
+    },
+    {
+      "title": "Tips for Creating a Luxurious Outdoor Living Space",
+      "alt": "Photo by Hutomo Abrianto on Unsplash"
+    }
+  ]
+}

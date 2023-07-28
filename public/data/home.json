@@ -1,0 +1,36 @@
+{
+  "whyChooseUs": [
+    {
+      "icon": "./icons/icon_chair.svg",
+      "name": "Quality Lumber",
+      "desc": "Each piece is meticulously crafted using the finest materials and attention to detail, ensuring that every item in our collection is both beautiful and functional."
+    },
+    {
+      "icon": "./icons/icon_pen.svg",
+      "name": "Unique Designs",
+      "desc": "Our furniture is not just an investment in your home, but in the memories you will create with family and friends, making each piece a cherished addition to your life."
+    },
+    {
+      "icon": "./icons/icon_hammer.svg",
+      "name": "Customized for You",
+      "desc": "We offer customization options to ensure that every piece of furniture is tailored to your unique needs and preferences, resulting in a truly personalized experience."
+    }
+  ],
+  "testimonials": [
+    {
+      "icon": "./icons/icon_star.svg",
+      "name": "Samuel Martinez",
+      "desc": "I was blown away by the beauty of the furniture when it arrived. The attention to detail and quality of the materials used are truly impressive."
+    },
+    {
+      "icon": "./icons/icon_star.svg",
+      "name": "Rachel Patel",
+      "desc": "The pieces are not only beautiful, but also comfortable and functional. I'm so glad I invested in quality furniture that I know will last a lifetime."
+    },
+    {
+      "icon": "./icons/icon_star.svg",
+      "name": "Jessica Nguyen",
+      "desc": "I couldn't be happier with my purchase from Furniture. The quality and craftsmanship of the furniture is exceptional. It's clear that a lot of care and attention went into making each piece."
+    }
+  ]
+}
