@@ -30,7 +30,7 @@ export default function Footer() {
       >
         {/* COMPANY TITLE & SUMMARY */}
         <div>
-          <Title textSize="text-xl" size="w-1.5 h-1.5">
+          <Title textSize="text-xl" colour="text-brand-light">
             Furniture
           </Title>
           <p className="w-full max-w-md pt-2 font-fira font-light capitalize">

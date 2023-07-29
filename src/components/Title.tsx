@@ -1,21 +1,18 @@
 interface TitleProp {
-  size?: string;
   extra?: string;
-  colour?: string;
+  colour: string;
   textSize: string;
   children: React.ReactNode;
 }
 
 //prettier-ignore
-export default function Title({ size, textSize, colour,  extra, children }: TitleProp) {
+export default function Title({ extra, colour, textSize, children }: TitleProp) {
   return (
     <h2
-      className={`font-medium uppercase tracking-tight text-brand-light 
-      ${textSize} ${colour} ${extra}`}
+      className={`${textSize} ${colour} ${extra} font-medium uppercase tracking-tight`}
     >
       {children}
-      <span className={`inline-block ml-2 h-2 w-2 rounded-sm 
-      bg-brand-base ${size}`} />
+      <span className="inline-block ml-2 h-2 w-2 rounded-sm bg-brand-base" />
     </h2>
   );
 }
