@@ -2,8 +2,7 @@ import { Hero } from "@/components";
 export default function About() {
   return (
     <>
-      <Hero></Hero>
-      About
+      <Hero>About</Hero>
     </>
   );
 }

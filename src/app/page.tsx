@@ -1,7 +1,13 @@
+"use client";
 import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
+import { switchBtnVariant } from "@/libs/motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Hero, Title, SeeMoreBtn, EmailForm } from "@/components";
 
 export default function Home() {
+  const [switchBtn, setSwitchBtn] = useState(false);
   return (
     <>
       <Hero>
@@ -52,6 +58,46 @@ export default function Home() {
               </p>
             </div>
             <SeeMoreBtn href="/shop" alignment="self-start sm:self-end" />
+          </div>
+        </section>
+
+        {/* WHY CHOOSE US & TESTIMONIALS */}
+        <section className="brand-px">
+          <div
+            className="mb-16 flex flex-col items-center gap-8 
+            rounded-lg bg-brand-dark/5 px-12 py-8 text-center 
+            md:flex-row-reverse md:justify-between md:text-start 
+            lg:justify-around"
+          >
+            {/* SWITCH BUTTON */}
+            <button
+              type="button"
+              onClick={() => setSwitchBtn((prev) => !prev)}
+              className="relative h-20 w-40 overflow-hidden 
+              rounded-full bg-brand-base"
+            >
+              <Image
+                fill
+                sizes="24vw"
+                src="/texture.webp"
+                alt="texture image"
+                className="object-cover opacity-50"
+              />
+              <motion.div
+                variants={switchBtnVariant(switchBtn)}
+                initial="initial"
+                animate="animate"
+                className="absolute h-14 w-14 overflow-hidden rounded-full"
+              >
+                <Image
+                  fill
+                  sizes="16vw"
+                  src="/texture.webp"
+                  alt="texture image"
+                  className="object-cover"
+                />
+              </motion.div>
+            </button>
           </div>
         </section>
 

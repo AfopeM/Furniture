@@ -14,6 +14,7 @@ export default function BlurImage({ imgSrc, imgAlt, style }: BlurImageProp) {
       fill
       src={imgSrc}
       alt={imgAlt}
+      sizes="50vw"
       className={`${
         isLoading ? "blur-2xl grayscale" : "blur-0 grayscale-0"
       } ${style} object-cover brand-duration-500`}
