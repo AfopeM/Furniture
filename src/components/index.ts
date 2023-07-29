@@ -4,5 +4,17 @@ import Title from "./Title";
 import Footer from "./Footer";
 import BlurImage from "./BlurImage";
 import EmailForm from "./EmailForm";
+import HomeCards from "./HomeCards";
 import SeeMoreBtn from "./SeeMoreBtn";
-export { Nav, Hero, Title, Footer, BlurImage, EmailForm, SeeMoreBtn };
+import ProductCards from "./ProductCards";
+export {
+  Nav,
+  Hero,
+  Title,
+  Footer,
+  BlurImage,
+  EmailForm,
+  HomeCards,
+  SeeMoreBtn,
+  ProductCards,
+};

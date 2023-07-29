@@ -2,12 +2,24 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { switchBtnVariant } from "@/libs/motion";
+import homeData from "@/../public/data/home.json";
+import productData from "@/../public/data/products.json";
 import { motion, AnimatePresence } from "framer-motion";
-import { Hero, Title, SeeMoreBtn, EmailForm } from "@/components";
+import { switchBtnVariant, fadeInOutVariant } from "@/libs/motion";
+import {
+  Hero,
+  Title,
+  SeeMoreBtn,
+  EmailForm,
+  HomeCards,
+  ProductCards,
+} from "@/components";
 
 export default function Home() {
+  const { popular } = productData;
+  const { whyChooseUs, testimonials } = homeData;
   const [switchBtn, setSwitchBtn] = useState(false);
+
   return (
     <>
       <Hero>
@@ -59,10 +71,21 @@ export default function Home() {
             </div>
             <SeeMoreBtn href="/shop" alignment="self-start sm:self-end" />
           </div>
+
+          {/* POPULAR PRODUCTS */}
+          <div
+            className="brand-px flex flex-wrap items-center 
+            justify-center gap-16"
+          >
+            {popular.map((product, i) => {
+              return <ProductCards key={product.id} {...product} index={i} />;
+            })}
+          </div>
         </section>
 
         {/* WHY CHOOSE US & TESTIMONIALS */}
         <section className="brand-px">
+          {/* TITLE */}
           <div
             className="mb-16 flex flex-col items-center gap-8 
             rounded-lg bg-brand-dark/5 px-12 py-8 text-center 
@@ -98,6 +121,67 @@ export default function Home() {
                 />
               </motion.div>
             </button>
+
+            <AnimatePresence mode="wait">
+              {switchBtn ? (
+                <motion.div
+                  key={"why choose us"}
+                  variants={fadeInOutVariant}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <Title textSize="text-3xl" colour="text-brand-dark">
+                    why choose us
+                  </Title>
+                  <p className="max-w-sm pt-2 font-fira font-light text-brand-dark/50">
+                    Our handcrafted furniture is designed to elevate any space
+                    with unparalleled style and comfort.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key={"Testimonials"}
+                  variants={fadeInOutVariant}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <Title textSize="text-3xl" colour="text-brand-dark">
+                    Testimonials
+                  </Title>
+                  <p className="max-w-sm pt-2 font-fira font-light text-brand-dark/50">
+                    Our commitment to quality is evident in every piece of
+                    furniture we create.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* CARDS */}
+          <div className="flex flex-wrap justify-center gap-8">
+            {switchBtn
+              ? whyChooseUs.map((us, i) => {
+                  return (
+                    <HomeCards
+                      key={us.name}
+                      type="Why Choose Us"
+                      {...us}
+                      index={i + 1}
+                    />
+                  );
+                })
+              : testimonials.map((test, i) => {
+                  return (
+                    <HomeCards
+                      key={test.name}
+                      type="testimonials"
+                      {...test}
+                      index={i + 1}
+                    />
+                  );
+                })}
           </div>
         </section>
 
