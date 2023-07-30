@@ -7,6 +7,7 @@ import EmailForm from "./EmailForm";
 import HomeCards from "./HomeCards";
 import SeeMoreBtn from "./SeeMoreBtn";
 import ProductCards from "./ProductCards";
+import CollectionCards from "./CollectionCards";
 export {
   Nav,
   Hero,
@@ -17,4 +18,5 @@ export {
   HomeCards,
   SeeMoreBtn,
   ProductCards,
+  CollectionCards,
 };
