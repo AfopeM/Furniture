@@ -39,35 +39,35 @@
   ],
   "trustedby": [
     {
-      "image": "/about/trustedby/burberrys.svg",
+      "image": "/trustedby/burberrys.svg",
       "alt": "Burberrys Logo"
     },
     {
-      "image": "/about/trustedby/chanel.svg",
+      "image": "/trustedby/chanel.svg",
       "alt": "Chanel Logo"
     },
     {
-      "image": "/about/trustedby/dolce_gabbana.svg",
+      "image": "/trustedby/dolce_gabbana.svg",
       "alt": "Dolce Gabbana Logo"
     },
     {
-      "image": "/about/trustedby/hugo_boss.svg",
+      "image": "/trustedby/hugo_boss.svg",
       "alt": "Hugo Boss Logo"
     },
     {
-      "image": "/about/trustedby/ray_ban.svg",
+      "image": "/trustedby/ray_ban.svg",
       "alt": "Ray Ban Logo"
     },
     {
-      "image": "/about/trustedby/the_north_face.svg",
+      "image": "/trustedby/the_north_face.svg",
       "alt": "The North Face Logo"
     },
     {
-      "image": "/about/trustedby/tiffany_co.svg",
+      "image": "/trustedby/tiffany_co.svg",
       "alt": "Tiffany Co Logo"
     },
     {
-      "image": "/about/trustedby/vogue.svg",
+      "image": "/trustedby/vogue.svg",
       "alt": "Vogue Logo"
     }
   ]

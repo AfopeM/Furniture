@@ -139,7 +139,7 @@ export default function EmailForm() {
                     payload: { address: e.target.value },
                   })
                 }
-                className="h-10 w-3/4 bg-transparent text-brand-dark/50 
+                className="h-10 w-3/4 bg-transparent text-brand-gray 
                 focus:outline-none"
                 placeholder="Enter your email"
               />

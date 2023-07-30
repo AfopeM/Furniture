@@ -3,8 +3,13 @@ import { Nav } from ".";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+interface HeroProp {
+  title?: string;
+  children?: React.ReactNode;
+}
+
 //prettier-ignore
-export default function Hero({ children } : { children:React.ReactNode }) {
+export default function Hero({ children, title } : HeroProp) {
 const currentPage = usePathname();
 
   return (
@@ -30,7 +35,10 @@ const currentPage = usePathname();
             : "h-[40vh]"
         } brand-px flex w-full items-center justify-center text-center`}
       >
-        {children}
+        {currentPage === "/" ? children : (<h1 className="text-5xl font-bold uppercase tracking-tight 
+          md:text-6xl lg:text-8xl"> 
+          {title}
+        </h1>)}
       </section>
     </header>
   );

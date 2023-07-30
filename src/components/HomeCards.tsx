@@ -21,11 +21,11 @@ export default function HomeCards({ type, name, icon, desc, index }: HomeCardsPr
       whileHover="whileHover"
       exit="exit"
       className="group max-w-sm space-y-2 rounded-xl text-center 
-      overflow-hidden"
+      overflow-hidden flex items-center"
     >
       <div
-        className="bg-brand-dark/5 px-10 py-8 group-hover:bg-brand-dark 
-        brand-duration-500"
+        className="bg-brand-dark/5 px-10 py-6 group-hover:bg-brand-dark 
+        brand-duration-500 h-full"
       >
         {type === "Why Choose Us" ? (
           <>
@@ -69,13 +69,13 @@ export default function HomeCards({ type, name, icon, desc, index }: HomeCardsPr
               className="mx-auto h-12 w-32"
             />
             <p
-              className="brand-ease font-fira font-light 
-              text-brand-dark/50 group-hover:text-brand-light/50"
+              className="brand-duration-500 font-fira font-light 
+              text-brand-dark/50 group-hover:text-brand-gray pb-2"
             >
               {desc}
             </p>
             <h3
-              className="brand-ease text-2xl font-medium capitalize
+              className="brand-duration-500 text-2xl font-medium capitalize
               text-brand-dark group-hover:text-brand-light"
             >
               {name}

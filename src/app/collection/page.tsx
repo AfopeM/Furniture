@@ -5,14 +5,7 @@ export default function Collection() {
   const { collections, blogs } = collectionData;
   return (
     <>
-      <Hero>
-        <h1
-          className="text-5xl font-bold uppercase tracking-tight 
-          md:text-6xl lg:text-8xl"
-        >
-          Our Collection
-        </h1>
-      </Hero>
+      <Hero title="Our Collection" />
       <main className="space-y-16">
         {/* COLLECTION TAGLINE */}
         <div className="brand-px bg-brand-dark/10 py-12">
