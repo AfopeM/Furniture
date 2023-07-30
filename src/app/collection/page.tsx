@@ -1,5 +1,5 @@
-import { Hero, Title, CollectionCards } from "@/components";
 import collectionData from "@/../public/data/collection.json";
+import { Hero, Title, CollectionCards, BlogCards } from "@/components";
 
 export default function Collection() {
   const { collections, blogs } = collectionData;
@@ -13,9 +13,9 @@ export default function Collection() {
           Our Collection
         </h1>
       </Hero>
-      <main>
+      <main className="space-y-16">
         {/* COLLECTION TAGLINE */}
-        <div className="brand-px bg-brand-dark/10 py-12 mb-10">
+        <div className="brand-px bg-brand-dark/10 py-12">
           <Title
             textSize="text-3xl md:text-4xl"
             colour="text-brand-dark"
@@ -36,6 +36,28 @@ export default function Collection() {
               />
             );
           })}
+        </section>
+
+        {/* BLOGS SECTION */}
+        <section className="brand-px space-y-16">
+          <div className="rounded-xl bg-brand-dark/10 px-8 py-12 text-center">
+            <Title textSize="text-3xl" colour="text-brand-dark" extra="mx-auto">
+              Our Blog
+            </Title>
+            <p className="mx-auto pt-2 max-w-md font-fira font-light text-brand-dark/50">
+              Our blog is a source of inspiration and information, featuring
+              expert advice, design tips, and behind-the-scenes glimpses of our
+              brand
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-16">
+            {blogs.map((blog, i) => {
+              return (
+                <BlogCards {...blog} index={i} key={`${i}${blog.title}`} />
+              );
+            })}
+          </div>
         </section>
       </main>
     </>
