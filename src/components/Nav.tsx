@@ -33,7 +33,7 @@ export default function Nav() {
 
   return (
     <nav
-      className="brand-px relative z-20 grid h-20 w-full  
+      className="brand-px relative z-30 grid h-20 w-full  
       grid-cols-3 items-center justify-between uppercase"
     >
       {/* CART */}
