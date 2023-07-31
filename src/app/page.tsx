@@ -41,7 +41,7 @@ export default function Home() {
           {/* SHOP BUTTON */}
           <Link
             href="/shop"
-            className="relative brand-duration-500 rounded-xl bg-brand-base/25 
+            className="relative brand-ease rounded-xl bg-brand-base/25 
             px-8 py-4 tracking-wider text-brand-base hover:bg-brand-base 
             hover:px-12 hover:text-brand-light lg:px-16 lg:text-lg lg:hover:px-20"
           >

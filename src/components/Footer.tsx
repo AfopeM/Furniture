@@ -55,7 +55,7 @@ export default function Footer() {
                         currentPage === company
                           ? "text-brand-light"
                           : "text-brand-gray"
-                      } brand-duration-500 hover:text-brand-light`}
+                      } brand-ease hover:text-brand-light`}
                     >
                       {company}
                     </Link>

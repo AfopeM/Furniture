@@ -23,7 +23,7 @@ export default function BlurImage({
       sizes={size ? size : `50vw`}
       className={`${
         isLoading ? "blur-2xl grayscale" : "blur-0 grayscale-0"
-      } object-cover ${style} brand-duration-500`}
+      } object-cover ${style} brand-ease`}
       onLoadingComplete={() => setIsLoading(false)}
     />
   );

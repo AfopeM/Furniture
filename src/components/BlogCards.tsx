@@ -45,7 +45,7 @@ export default function ArticleBlog({ index, alt, title }: BlogCardsProp) {
           {`${final[0]} ${final[1]}, ${final[2]}`}
         </span>
         <h4
-          className="brand-duration-500 text-3xl text-brand-dark 
+          className="brand-ease text-3xl text-brand-dark 
           group-hover:text-brand-base"
         >
           {title}

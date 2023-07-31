@@ -41,7 +41,7 @@ export default function Nav() {
         className={`group relative flex justify-center justify-self-start 
         hover:text-brand-light md:col-start-3 md:justify-self-end`}
       >
-        <div className="group-hover:scale-110 brand-duration-300">
+        <div className="group-hover:scale-110 brand-ease">
           <FontAwesomeIcon icon={faBagShopping} className="pb-1 text-2xl" />
         </div>
         <span
@@ -57,7 +57,7 @@ export default function Nav() {
         href="/"
         className={`${
           currentPage === "/" ? "text-brand-light" : "text-brand-gray"
-        } brand-duration-500 group col-start-2 row-start-1 
+        } brand-ease group col-start-2 row-start-1 
         justify-self-center text-2xl font-bold tracking-tight 
         hover:text-brand-light md:col-start-1 md:justify-self-start 
         md:text-3xl`}
@@ -66,7 +66,7 @@ export default function Nav() {
         <span
           className={`${
             currentPage === "/" ? " opacity-100" : "opacity-0"
-          } brand-duration-500 inline-block h-2 w-2 rounded-sm
+          } brand-ease inline-block h-2 w-2 rounded-sm
           bg-brand-base group-hover:opacity-100`}
         />
       </Link>
@@ -74,7 +74,7 @@ export default function Nav() {
       {/* MOBILE MENU BUTTON */}
       <button
         onClick={() => handleOpenMenu(true)}
-        className="brand-duration-500 relative col-start-3 justify-self-end 
+        className="brand-ease relative col-start-3 justify-self-end 
         hover:scale-110 md:hidden"
       >
         <FontAwesomeIcon icon={faBarsStaggered} className="text-2xl" />
@@ -84,14 +84,14 @@ export default function Nav() {
       <aside
         className={`${
           openMenu ? "translate-x-0" : "translate-x-full"
-        } brand-duration-500 fixed left-0 top-0 flex h-screen w-full 
+        } brand-ease fixed left-0 top-0 flex h-screen w-full 
         flex-col items-center gap-24 bg-brand-dark bg-opacity-80 p-8  
         backdrop-blur-md md:translate-x-full`}
       >
         {/* CLOSE BTN */}
         <button
           onClick={() => handleOpenMenu(false)}
-          className="brand-duration-300 group flex h-6 w-6 items-center
+          className="brand-ease group flex h-6 w-6 items-center
           justify-center self-end text-end hover:scale-110"
         >
           <FontAwesomeIcon
@@ -106,14 +106,14 @@ export default function Nav() {
           onClick={() => setOpenMenu(false)}
           className={`${
             currentPage === "/" ? "text-brand-light" : "text-brand-gray"
-          } brand-duration-500 group mt-20 text-3xl font-bold tracking-tight 
+          } brand-ease group mt-20 text-3xl font-bold tracking-tight 
           hover:text-brand-light`}
         >
           Furniture{" "}
           <span
             className={`${
               currentPage === "/" ? "opacity-100" : "opacity-0"
-            } brand-duration-500 inline-block h-2 w-2 rounded-sm 
+            } brand-ease inline-block h-2 w-2 rounded-sm 
           bg-brand-base group-hover:opacity-100`}
           />
         </Link>
@@ -133,14 +133,14 @@ export default function Nav() {
                     currentPage === route.path
                       ? "text-brand-light"
                       : "text-brand-gray"
-                  } brand-duration-500 tracking-wider hover:text-brand-light`}
+                  } brand-ease tracking-wider hover:text-brand-light`}
                 >
                   {route.name}
                 </Link>
                 <span
                   className={`${
                     currentPage === route.path ? "opacity-100" : "opacity-0"
-                  } brand-duration-500 absolute -bottom-2 left-1/2 block h-2 w-2
+                  } brand-ease absolute -bottom-2 left-1/2 block h-2 w-2
                    -translate-x-1/2 rounded-sm bg-brand-base group-hover:opacity-100`}
                 />
               </li>
@@ -163,14 +163,14 @@ export default function Nav() {
                   currentPage === route.path
                     ? "text-brand-light"
                     : "text-brand-gray"
-                } brand-duration-500 tracking-wider hover:text-brand-light`}
+                } brand-ease tracking-wider hover:text-brand-light`}
               >
                 {route.name}
               </Link>
               <span
                 className={`${
                   currentPage === route.path ? "opacity-100" : "opacity-0"
-                } brand-duration-500 absolute -bottom-2 left-1/2 h-2 w-2 
+                } brand-ease absolute -bottom-2 left-1/2 h-2 w-2 
                 -translate-x-1/2 rounded-sm bg-brand-base 
                 group-hover:opacity-100`}
               />

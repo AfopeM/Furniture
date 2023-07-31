@@ -146,7 +146,7 @@ export default function EmailForm() {
               <button
                 type="submit"
                 onClick={(e) => handleSubmit(e)}
-                className="brand-duration-500 rounded-xl 
+                className="brand-ease rounded-xl 
               bg-brand-base/10 px-6 py-4 text-brand-base 
               hover:bg-brand-base hover:text-brand-light"
               >
@@ -161,7 +161,7 @@ export default function EmailForm() {
                     ? ""
                     : "translate-y-10"
                 } 
-              brand-duration-500 absolute bottom-0 left-1/2 -z-10 w-1/2 
+              brand-ease absolute bottom-0 left-1/2 -z-10 w-1/2 
               -translate-x-1/2 rounded-bl-xl rounded-br-xl 
               bg-brand-red/25 py-2 font-bold tracking-wider 
               text-brand-red`}

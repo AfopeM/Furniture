@@ -25,7 +25,7 @@ export default function HomeCards({ type, name, icon, desc, index }: HomeCardsPr
     >
       <div
         className="bg-brand-dark/5 px-10 py-6 group-hover:bg-brand-dark 
-        brand-duration-500 h-full"
+        brand-ease h-full"
       >
         {type === "Why Choose Us" ? (
           <>
@@ -69,13 +69,13 @@ export default function HomeCards({ type, name, icon, desc, index }: HomeCardsPr
               className="mx-auto h-12 w-32"
             />
             <p
-              className="brand-duration-500 font-fira font-light 
+              className="brand-ease font-fira font-light 
               text-brand-dark/50 group-hover:text-brand-gray pb-2"
             >
               {desc}
             </p>
             <h3
-              className="brand-duration-500 text-2xl font-medium capitalize
+              className="brand-ease text-2xl font-medium capitalize
               text-brand-dark group-hover:text-brand-light"
             >
               {name}

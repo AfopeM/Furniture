@@ -41,7 +41,7 @@ export default function ProductCards({
         type="button"
         className="bg-brand-dark py-6 pr-3 pl-4 rounded-r-2xl absolute
         top-4 right-0 group-hover:translate-x-10 hover:bg-brand-base
-        brand-duration-500"
+        brand-ease"
       >
         <FontAwesomeIcon icon={faPlus} className="text-xl" />
       </button>
@@ -69,7 +69,7 @@ export default function ProductCards({
             </h3>
           </div>
           <span
-            className="brand-duration-500 rounded-lg  bg-brand-base/25 p-2 font-fira 
+            className="brand-ease rounded-lg  bg-brand-base/25 p-2 font-fira 
             text-lg tracking-wider text-brand-base group-hover:bg-brand-base
             group-hover:text-brand-light"
           >

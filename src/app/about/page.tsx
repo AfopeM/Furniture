@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import aboutData from "@/../public/data/about.json";
 import { Hero, Title } from "@/components";
+import aboutData from "@/../public/data/about.json";
 
 export default function About() {
   const { members, trustedby } = aboutData;
@@ -79,17 +79,17 @@ export default function About() {
                     src={member.image}
                     sizes="(max-width: 768px)60vw, 40vw"
                     className="object-contain w-full grayscale group-hover:grayscale-0 
-                    brand-duration-500"
+                    brand-ease"
                   />
                   <div className="text-center uppercase md:text-start">
                     <span
-                      className="brand-duration-500 font-fira text-xl font-light 
+                      className="brand-ease font-fira text-xl font-light 
                      text-brand-base/50 group-hover:text-brand-base"
                     >
                       {member.position}
                     </span>
                     <h4
-                      className="text-3xl font-bold text-brand-gray brand-duration-500 
+                      className="text-3xl font-bold text-brand-gray brand-ease 
                       group-hover:text-brand-light md:text-4xl"
                     >
                       {member.name}
