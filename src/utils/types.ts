@@ -1,4 +1,4 @@
-export interface ProductItemProp {
+export interface ProductDetailProp {
   id: string;
   image: string;
   name: string;
@@ -8,4 +8,12 @@ export interface ProductItemProp {
   origin: string;
   material: string;
   dimensions: string;
+}
+
+export interface ProductCardProp {
+  id: string;
+  name: string;
+  type: string;
+  price: number;
+  image: string;
 }

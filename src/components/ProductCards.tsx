@@ -4,16 +4,13 @@ import { motion } from "framer-motion";
 import { currencyFormat } from "@/utils";
 import { useRouter } from "next/navigation";
 import { cardVariant } from "@/libs/motion";
+import type { ProductCardProp } from "@/utils/types";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useViewedProducts } from "@/libs/zustand/useViewedProduct";
 
-interface ProductCardsProp {
-  id: string;
-  name: string;
-  type: string;
-  price: number;
+interface AnimateProductCardProp extends ProductCardProp {
   index: number;
-  image: string;
 }
 
 export default function ProductCards({
@@ -23,17 +20,28 @@ export default function ProductCards({
   type,
   id,
   index,
-}: ProductCardsProp) {
+}: AnimateProductCardProp) {
   const router = useRouter();
+  const addToViewed = useViewedProducts((state) => state.addToViewed);
+
+  function handleAddToViewed() {
+    const addProduct = {
+      id,
+      name,
+      type,
+      price,
+      image,
+    };
+    addToViewed(addProduct);
+    router.push(`/product/${id}`);
+  }
 
   return (
     <motion.article
       variants={cardVariant(index, 0.2)}
       initial="initial"
       animate="animate"
-      onClick={() => {
-        router.push(`/product/${id}`);
-      }}
+      onClick={() => handleAddToViewed()}
       className="group relative"
     >
       {/* ADD TO CART BTN */}

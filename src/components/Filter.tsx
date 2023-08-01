@@ -1,7 +1,7 @@
 "use client";
 import { ProductCards } from "@/components";
 import { useReducer, useState } from "react";
-import { ProductItemProp } from "@/utils/types";
+import type { ProductDetailProp } from "@/utils/types";
 import productData from "@/../public/data/products.json";
 import { faFilter, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -51,7 +51,7 @@ const optionList = productData.products.reduce((acc, product) => {
 
       const newItems = {
         name: filterName,
-        list: [[product[filterName as keyof ProductItemProp]].toString()],
+        list: [[product[filterName as keyof ProductDetailProp]].toString()],
       };
 
       acc.push(newItems);
@@ -60,9 +60,9 @@ const optionList = productData.products.reduce((acc, product) => {
   }
 
   acc.map((opt) => {
-    const val = product[opt.name as keyof ProductItemProp];
-    if (!opt.list.includes(val as keyof ProductItemProp)) {
-      opt.list.push(val as keyof ProductItemProp);
+    const val = product[opt.name as keyof ProductDetailProp];
+    if (!opt.list.includes(val as keyof ProductDetailProp)) {
+      opt.list.push(val as keyof ProductDetailProp);
     }
   });
 
@@ -134,10 +134,10 @@ export default function Filter() {
 
           const newProducts = Object.entries(state).reduce(
             (acc, optObj) => {
-              const optionK = optObj[0] as keyof ProductItemProp;
+              const optionK = optObj[0] as keyof ProductDetailProp;
               const options = optObj[1].currentChoices;
 
-              let newAcc: ProductItemProp[] = [];
+              let newAcc: ProductDetailProp[] = [];
 
               if (options.length > 0) {
                 options.forEach((option) => {
