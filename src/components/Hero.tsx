@@ -33,7 +33,7 @@ const currentPage = usePathname();
           currentPage === "/"
             ? "h-[75vh] lg:justify-start"
             : "h-[40vh]"
-        } brand-px flex w-full items-center justify-center text-center`}
+        } brand-px flex w-full items-center relative justify-center text-center`}
       >
         {currentPage === "/" ? children : (<h1 className="text-5xl font-bold uppercase tracking-tight 
           md:text-6xl lg:text-8xl"> 

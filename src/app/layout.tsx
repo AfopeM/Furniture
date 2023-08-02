@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={`${oswald.variable} ${fira.variable}bg-brand-light 
+      <body suppressHydrationWarning={true} className={`${oswald.variable} ${fira.variable } bg-brand-light 
       font-oswald text-brand-light min-h-screen`}>
         {children}
         <Footer/>
