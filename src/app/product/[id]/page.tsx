@@ -36,8 +36,9 @@ export default function Product() {
   ];
 
   // CART
-  const { addToCart } = useCart((state) => state);
-  const amount = useCart((state) => state.productAmount(product?.id || ""));
+  const [amount, setAmount] = useState(0);
+  const newAmount = useCart((state) => state.productAmount(product?.id || ""));
+  const { addToCart, increase, decrease } = useCart((state) => state);
 
   function handleAddToCart() {
     if (product) {
@@ -53,15 +54,14 @@ export default function Product() {
     }
   }
 
-  //   console.log(cart);
-
   // VIEW PRODUCTS
   const viewedProducts = useViewedProducts((state) => state.viewed);
   const [viewed, setViewed] = useState<null | ProductCardProp[]>(null);
 
   useEffect(() => {
     setViewed(viewedProducts);
-  }, [viewedProducts]);
+    setAmount(newAmount);
+  }, [viewedProducts, newAmount]);
 
   return (
     <>
@@ -144,7 +144,7 @@ export default function Product() {
                       <div className="grid grid-cols-4 h-full items-center justify-center">
                         <button
                           type="button"
-                          //   onClick={() => dispatch(decrease(product.name))}
+                          onClick={() => decrease(product.id)}
                           className="brand-ease h-full bg-brand-base/20 font-bold text-brand-base 
                           hover:bg-brand-base hover:text-brand-light"
                         >
@@ -159,7 +159,7 @@ export default function Product() {
 
                         <button
                           type="button"
-                          //   onClick={() => dispatch(increase(product.name))}
+                          onClick={() => increase(product.id)}
                           className="brand-ease h-full bg-brand-base/20 font-bold text-brand-base 
                           hover:bg-brand-base hover:text-brand-light/90"
                         >
@@ -197,7 +197,7 @@ export default function Product() {
               Would you like to take another look at these products.
             </p>
           </div>
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-8 px-8">
+          <div className="flex flex-wrap items-center justify-center gap-y-8 gap-x-16 px-8">
             {viewed
               ? viewed.map((product, i) => {
                   return (

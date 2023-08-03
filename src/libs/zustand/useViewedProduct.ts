@@ -15,10 +15,10 @@ export const useViewedProducts = create<ViewedProductsProp>()(
         const newProducts = get().viewed.filter(
           (view) => view.id !== product.id
         );
-        newProducts.push(product);
+        newProducts.unshift(product);
 
         set((state) => {
-          if (state.viewed.length > 4) state.viewed.shift();
+          if (state.viewed.length > 4) state.viewed.pop();
           return { ...state, viewed: newProducts };
         });
       },
