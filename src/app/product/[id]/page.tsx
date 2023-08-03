@@ -54,6 +54,11 @@ export default function Product() {
     }
   }
 
+  // RELATED PRODUCTS
+  const relatedProduct = productData.products.filter(
+    (item) => item.type === product?.type && item.id !== product.id
+  );
+
   // VIEW PRODUCTS
   const viewedProducts = useViewedProducts((state) => state.viewed);
   const [viewed, setViewed] = useState<null | ProductCardProp[]>(null);
@@ -152,7 +157,7 @@ export default function Product() {
                         </button>
                         <span
                           className="brand-ease col-span-2 col-start-2 flex h-full items-center justify-center 
-                          bg-brand-light/20 text-xl text-brand-light"
+                          bg-brand-light/10 text-xl text-brand-light"
                         >
                           {amount}
                         </span>
@@ -186,9 +191,35 @@ export default function Product() {
         )}
       </main>
 
-      <div className="space-y-4 mt-8">
+      <div className="space-y-12 mt-24">
+        {/* RELATED PRODUCTS */}
+        <section className="space-y-6 brand-px">
+          <div className="rounded-xl bg-brand-dark/10 px-12 py-6 text-center md:text-start">
+            <Title textSize="text-3xl" colour="text-brand-dark">
+              Related Products
+            </Title>
+            <p className="font-fira font-light text-brand-dark/50 pt-2 tracking-wide">
+              You many also like these...
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-y-8 gap-x-16 px-8">
+            {relatedProduct
+              ? relatedProduct.map((product, i) => {
+                  return (
+                    <ProductCards
+                      index={i}
+                      size="small"
+                      {...product}
+                      key={product.id}
+                    />
+                  );
+                })
+              : null}
+          </div>
+        </section>
+
         {/* VIEWED PRODUCTS */}
-        <section className="space-y-4 brand-px">
+        <section className="space-y-6 brand-px">
           <div className="rounded-xl bg-brand-dark/10 px-12 py-6 text-center md:text-start">
             <Title textSize="text-3xl" colour="text-brand-dark">
               Previously Viewed Furinture
@@ -201,7 +232,12 @@ export default function Product() {
             {viewed
               ? viewed.map((product, i) => {
                   return (
-                    <ProductCards key={product.id} index={i} {...product} />
+                    <ProductCards
+                      index={i}
+                      size="small"
+                      {...product}
+                      key={product.id}
+                    />
                   );
                 })
               : null}
