@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { currencyFormat } from "@/utils";
 import { useCart } from "@/libs/zustand";
 import { useRouter } from "next/navigation";
-import { cardVariant } from "@/libs/motion";
+import { useUpdateClient } from "@/utils/hooks";
 import type { ProductCardProp } from "@/utils/types";
+import { cardVariant } from "@/libs/framer-motion/motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useViewedProducts } from "@/libs/zustand/useViewedProduct";
@@ -26,9 +27,25 @@ export default function ProductCards({
 }: AnimateProductCardProp) {
   const router = useRouter();
 
+  // ADD TO PREVIOUSLY VIEWED PRODUCTS
+  const { addToViewed } = useViewedProducts((state) => state);
+  function handleAddToViewed() {
+    const addProduct = {
+      id,
+      name,
+      type,
+      price,
+      image,
+    };
+    addToViewed(addProduct);
+    router.push(`/product/${id}`);
+  }
+
   // INCREASE, DECREASE AND ADD PRODUCT TO CART
   const { addToCart, increase, decrease } = useCart((state) => state);
-  const amount = useCart((state) => state.productAmount(id));
+  const productAmount = useUpdateClient(
+    useCart((state) => state.productAmount(id))
+  );
 
   function handleAddToCart() {
     const addProduct = {
@@ -42,25 +59,11 @@ export default function ProductCards({
     addToCart(addProduct);
   }
 
-  // ADD TO PREVIOUSLY VIEWED PRODUCTS
-  const addToViewed = useViewedProducts((state) => state.addToViewed);
-  function handleAddToViewed() {
-    const addProduct = {
-      id,
-      name,
-      type,
-      price,
-      image,
-    };
-    addToViewed(addProduct);
-  }
-
   return (
     <motion.article
       variants={cardVariant(index, 0.2)}
       initial="initial"
       animate="animate"
-      onClick={() => handleAddToViewed()}
       className="group relative"
     >
       {/* ADD TO CART BTN */}
@@ -68,7 +71,7 @@ export default function ProductCards({
         className="brand-ease absolute w-10 rounded-r-2xl overflow-hidden top-6 
         right-0 group-hover:translate-x-10 bg-brand-dark"
       >
-        {amount <= 0 ? (
+        {productAmount <= 0 ? (
           <button
             type="button"
             onClick={() => handleAddToCart()}
@@ -91,7 +94,7 @@ export default function ProductCards({
               className="brand-ease flex h-full row-span-2 items-center justify-center 
              text-xl text-brand-light"
             >
-              {amount || 0}
+              {productAmount}
             </span>
             <button
               type="button"
@@ -105,7 +108,7 @@ export default function ProductCards({
         )}
       </div>
       <div
-        onClick={() => router.push(`/product/${id}`)}
+        onClick={() => handleAddToViewed()}
         className={`${
           size === "small" ? "w-56 h-72" : "h-80 w-72"
         } cursor-pointer overflow-hidden rounded-2xl bg-brand-dark z-10`}

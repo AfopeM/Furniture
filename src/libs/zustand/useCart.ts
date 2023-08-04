@@ -12,7 +12,8 @@ interface CartItemsProp {
 
 interface CartProp {
   cart: CartItemsProp[];
-  cartInfo: () => { totalPrice: number; cartLength: number };
+  totalPrice: () => number;
+  cartLength: () => number;
   productAmount: (productId: string) => number;
   addToCart: (product: CartItemsProp) => void;
   increase: (productId: string) => void;
@@ -25,18 +26,17 @@ export const useCart = create<CartProp>()(
     (set, get) => ({
       cart: [],
 
-      cartInfo: () => {
-        const info = get().cart.reduce(
-          (acc, item) => {
-            acc.totalPrice += item.amount * item.price;
-            acc.cartLength += item.amount;
-
-            return { ...acc };
-          },
-          { totalPrice: 0, cartLength: 0 }
+      totalPrice: () => {
+        const price = get().cart.reduce(
+          (acc, item) => acc + item.amount * item.price,
+          0
         );
+        return price;
+      },
 
-        return info;
+      cartLength: () => {
+        const length = get().cart.reduce((acc, item) => acc + item.amount, 0);
+        return length;
       },
 
       productAmount: (productId) => {

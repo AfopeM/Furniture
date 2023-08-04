@@ -2,18 +2,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { EmailForm } from "@/sections";
 import homeData from "@/../public/data/home.json";
-import productData from "@/../public/data/products.json";
 import { motion, AnimatePresence } from "framer-motion";
-import { switchBtnVariant, fadeInOutVariant } from "@/libs/motion";
+import productData from "@/../public/data/products.json";
 import {
-  Hero,
-  Title,
-  SeeMoreBtn,
-  EmailForm,
-  HomeCards,
-  ProductCards,
-} from "@/components";
+  switchBtnVariant,
+  fadeInOutVariant,
+} from "@/libs/framer-motion/motion";
+import { Hero, Title, HomeCards, SeeMoreBtn, ProductCards } from "@/components";
 
 export default function Home() {
   const { popular } = productData;

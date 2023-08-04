@@ -15,6 +15,7 @@ import {
   faEarthAfrica,
   faHammer,
 } from "@fortawesome/free-solid-svg-icons";
+import { useUpdateClient } from "@/utils/hooks";
 
 function ProductTag({ value, icon }: { value: string; icon: IconProp }) {
   return (
@@ -36,8 +37,9 @@ export default function Product() {
   ];
 
   // CART
-  const [amount, setAmount] = useState(0);
-  const newAmount = useCart((state) => state.productAmount(product?.id || ""));
+  const amount = useUpdateClient(
+    useCart((state) => state.productAmount(product?.id || ""))
+  );
   const { addToCart, increase, decrease } = useCart((state) => state);
 
   function handleAddToCart() {
@@ -65,8 +67,7 @@ export default function Product() {
 
   useEffect(() => {
     setViewed(viewedProducts);
-    setAmount(newAmount);
-  }, [viewedProducts, newAmount]);
+  }, [viewedProducts]);
 
   return (
     <>

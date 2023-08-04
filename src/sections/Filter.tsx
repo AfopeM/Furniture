@@ -3,8 +3,8 @@ import { ProductCards } from "@/components";
 import { useReducer, useState } from "react";
 import type { ProductDetailProp } from "@/utils/types";
 import productData from "@/../public/data/products.json";
-import { faFilter, faSortDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter, faSortDown } from "@fortawesome/free-solid-svg-icons";
 
 interface FilterOptionsProp {
   name: string;

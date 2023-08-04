@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { cardVariant } from "@/libs/motion";
+import { cardVariant } from "@/libs/framer-motion/motion";
 
 interface HomeCardsProp {
   type?: string;

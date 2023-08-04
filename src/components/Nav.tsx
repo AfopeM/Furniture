@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
+import { Cart } from "@/sections";
+import { useCart } from "@/libs/zustand";
 import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@mantine/hooks";
+import { useUpdateClient } from "@/utils/hooks";
 import { useState, useEffect, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,23 +15,40 @@ import {
 
 export default function Nav() {
   const currentPage = usePathname();
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
   const mediaQuery = useMediaQuery("(min-width:768px)");
 
+  // NAV PAGES
   const routes = [
     { name: "shop", path: "/shop" },
     { name: "collection", path: "/collection" },
     { name: "about", path: "/about" },
   ];
 
-  function handleOpenMenu(value: SetStateAction<boolean>) {
-    setOpenMenu(value);
+  //OPEN & CLOSE MOBILE MENU
+  function handleOpenMobileMenu(value: SetStateAction<boolean>) {
+    setOpenMobileMenu(value);
+    handleOpenCart(false);
   }
 
+  //OPEN & CLOSE CART
+  const [openCart, setOpenCart] = useState(false);
+  function handleOpenCart(value: boolean) {
+    setOpenCart(value);
+  }
+
+  // AMOUNT IN CART
+  const amountInCart = useUpdateClient(useCart((state) => state.cartLength()));
+  // const cartLength = useCart((state) => state.cartLength());
+  // const [amountInCart, setAmountInCart] = useState(0);
+
+  // useEffect(() => {
+  //   if (mediaQuery) setOpenMobileMenu(false);
+  //   setAmountInCart(cartLength);
+  // }, [mediaQuery, cartLength]);
+
   useEffect(() => {
-    if (mediaQuery) {
-      setOpenMenu(false);
-    }
+    if (mediaQuery) setOpenMobileMenu(false);
   }, [mediaQuery]);
 
   return (
@@ -36,8 +56,10 @@ export default function Nav() {
       className="brand-px relative z-30 grid h-20 w-full  
       grid-cols-3 items-center justify-between uppercase"
     >
-      {/* CART */}
+      {/* CART BUTTON */}
       <button
+        type="button"
+        onClick={() => handleOpenCart(!openCart)}
         className={`group relative flex justify-center justify-self-start 
         hover:text-brand-light md:col-start-3 md:justify-self-end`}
       >
@@ -45,12 +67,17 @@ export default function Nav() {
           <FontAwesomeIcon icon={faBagShopping} className="pb-1 text-2xl" />
         </div>
         <span
-          className={`absolute -translate-y-3 translate-x-3 items-start justify-center
+          className={`${
+            amountInCart <= 0 ? "hidden" : "block"
+          } absolute -translate-y-3 translate-x-3 items-start justify-center
           rounded-md bg-brand-base px-2 py-0.5 text-sm font-medium text-brand-light`}
         >
-          1
+          {amountInCart}
         </span>
       </button>
+
+      {/* CART */}
+      <Cart isCartOpen={openCart} />
 
       {/* LOGO */}
       <Link
@@ -73,7 +100,7 @@ export default function Nav() {
 
       {/* MOBILE MENU BUTTON */}
       <button
-        onClick={() => handleOpenMenu(true)}
+        onClick={() => handleOpenMobileMenu(true)}
         className="brand-ease relative col-start-3 justify-self-end 
         hover:scale-110 md:hidden"
       >
@@ -83,14 +110,14 @@ export default function Nav() {
       {/* MOBILE MENU CONTENT */}
       <aside
         className={`${
-          openMenu ? "translate-x-0" : "translate-x-full"
+          openMobileMenu ? "translate-x-0" : "translate-x-full"
         } brand-ease fixed left-0 top-0 flex h-screen w-full 
         flex-col items-center gap-24 bg-brand-dark bg-opacity-80 p-8  
         backdrop-blur-md md:translate-x-full`}
       >
         {/* CLOSE BTN */}
         <button
-          onClick={() => handleOpenMenu(false)}
+          onClick={() => handleOpenMobileMenu(false)}
           className="brand-ease group flex h-6 w-6 items-center
           justify-center self-end text-end hover:scale-110"
         >
@@ -103,7 +130,7 @@ export default function Nav() {
         {/* LOGO */}
         <Link
           href="/"
-          onClick={() => setOpenMenu(false)}
+          onClick={() => setOpenMobileMenu(false)}
           className={`${
             currentPage === "/" ? "text-brand-light" : "text-brand-gray"
           } brand-ease group mt-20 text-3xl font-bold tracking-tight 
@@ -128,7 +155,7 @@ export default function Nav() {
               <li key={route.name} className="group relative pb-1">
                 <Link
                   href={route.path}
-                  onClick={() => handleOpenMenu(true)}
+                  onClick={() => handleOpenMobileMenu(true)}
                   className={`${
                     currentPage === route.path
                       ? "text-brand-light"

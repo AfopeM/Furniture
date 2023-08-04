@@ -1,5 +1,5 @@
 "use client";
-import { BlurImage } from ".";
+import { BlurImage } from "../components";
 import { useReducer } from "react";
 import { motion } from "framer-motion";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";

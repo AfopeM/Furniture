@@ -1,4 +1,5 @@
-import { Hero, Title, Filter } from "@/components";
+import { Filter } from "@/sections";
+import { Hero, Title } from "@/components";
 
 export default function Shop() {
   return (
