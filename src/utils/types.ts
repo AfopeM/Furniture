@@ -17,3 +17,13 @@ export interface ProductCardProp {
   price: number;
   image: string;
 }
+
+
+export interface CartItemsProp {
+  productId: string;
+  name: string;
+  type: string;
+  price: number;
+  amount: number;
+  image: string;
+}

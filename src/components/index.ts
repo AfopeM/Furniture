@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import BlogCards from "./BlogCards";
 import BlurImage from "./BlurImage";
 import HomeCards from "./HomeCards";
+import CartCards from "./CartCards";
 import SeeMoreBtn from "./SeeMoreBtn";
 import ProductCards from "./ProductCards";
 import CollectionCards from "./CollectionCards";
@@ -13,6 +14,7 @@ export {
   Hero,
   Title,
   Footer,
+  CartCards,
   BlogCards,
   BlurImage,
   HomeCards,

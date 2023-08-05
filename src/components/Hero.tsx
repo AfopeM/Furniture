@@ -25,7 +25,6 @@ const currentPage = usePathname();
       />
       {/* NAVBAR */}
       <Nav />
-      
 
       {/* HERO */}
       <section

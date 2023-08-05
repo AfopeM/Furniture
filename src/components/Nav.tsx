@@ -39,13 +39,6 @@ export default function Nav() {
 
   // AMOUNT IN CART
   const amountInCart = useUpdateClient(useCart((state) => state.cartLength()));
-  // const cartLength = useCart((state) => state.cartLength());
-  // const [amountInCart, setAmountInCart] = useState(0);
-
-  // useEffect(() => {
-  //   if (mediaQuery) setOpenMobileMenu(false);
-  //   setAmountInCart(cartLength);
-  // }, [mediaQuery, cartLength]);
 
   useEffect(() => {
     if (mediaQuery) setOpenMobileMenu(false);
@@ -53,41 +46,50 @@ export default function Nav() {
 
   return (
     <nav
-      className="brand-px relative z-30 grid h-20 w-full  
-      grid-cols-3 items-center justify-between uppercase"
+      className="brand-px relative z-30 grid h-20 w-full grid-cols-3 
+      items-center justify-between uppercase"
     >
-      {/* CART BUTTON */}
-      <button
-        type="button"
-        onClick={() => handleOpenCart(!openCart)}
-        className={`group relative flex justify-center justify-self-start 
-        hover:text-brand-light md:col-start-3 md:justify-self-end`}
-      >
-        <div className="group-hover:scale-110 brand-ease">
-          <FontAwesomeIcon icon={faBagShopping} className="pb-1 text-2xl" />
-        </div>
-        <span
-          className={`${
-            amountInCart <= 0 ? "hidden" : "block"
-          } absolute -translate-y-3 translate-x-3 items-start justify-center
-          rounded-md bg-brand-base px-2 py-0.5 text-sm font-medium text-brand-light`}
-        >
-          {amountInCart}
-        </span>
-      </button>
-
       {/* CART */}
-      <Cart isCartOpen={openCart} />
+      <div
+        className="relative justify-self-start 
+        md:col-start-3 md:justify-self-end"
+      >
+        {/* CART BUTTON */}
+        <button
+          type="button"
+          onClick={() => handleOpenCart(!openCart)}
+          className="group relative flex justify-center"
+        >
+          <div className="brand-ease group-hover:scale-110">
+            <FontAwesomeIcon
+              icon={faBagShopping}
+              className={`${
+                openCart ? "text-brand-light" : "text-brand-light/50"
+              } brand-ease pb-1 text-2xl group-hover:text-brand-light/75`}
+            />
+          </div>
+          <span
+            className={`${
+              amountInCart <= 0 ? "hidden" : "block"
+            } absolute -translate-y-3 translate-x-3 items-start justify-center
+          rounded-md bg-brand-base px-2 py-0.5 text-sm font-medium text-brand-light`}
+          >
+            {amountInCart}
+          </span>
+        </button>
+
+        {/* CART DISPLAY */}
+        <Cart isCartOpen={openCart} />
+      </div>
 
       {/* LOGO */}
       <Link
         href="/"
         className={`${
           currentPage === "/" ? "text-brand-light" : "text-brand-gray"
-        } brand-ease group col-start-2 row-start-1 
-        justify-self-center text-2xl font-bold tracking-tight 
-        hover:text-brand-light md:col-start-1 md:justify-self-start 
-        md:text-3xl`}
+        } brand-ease group col-start-2 row-start-1 justify-self-center text-2xl 
+        font-bold tracking-tight hover:text-brand-light md:col-start-1 
+        md:justify-self-start md:text-3xl`}
       >
         Furniture{" "}
         <span
@@ -111,7 +113,7 @@ export default function Nav() {
       <aside
         className={`${
           openMobileMenu ? "translate-x-0" : "translate-x-full"
-        } brand-ease fixed left-0 top-0 flex h-screen w-full 
+        } brand-ease fixed left-0 top-0 z-20 flex h-screen w-full 
         flex-col items-center gap-24 bg-brand-dark bg-opacity-80 p-8  
         backdrop-blur-md md:translate-x-full`}
       >

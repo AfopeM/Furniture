@@ -1,14 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-interface CartItemsProp {
-  productId: string;
-  name: string;
-  type: string;
-  price: number;
-  amount: number;
-  image: string;
-}
+import type { CartItemsProp } from "@/utils/types";
 
 interface CartProp {
   cart: CartItemsProp[];
@@ -40,8 +32,9 @@ export const useCart = create<CartProp>()(
       },
 
       productAmount: (productId) => {
-        const amount = get().cart.find((item) => item.productId === productId)
-          ?.amount;
+        const amount = get().cart.find(
+          (item) => item.productId === productId
+        )?.amount;
         return amount || 0;
       },
 
