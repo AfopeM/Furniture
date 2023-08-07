@@ -5,13 +5,13 @@ import { currencyFormat } from "@/utils";
 import { useCart } from "@/libs/zustand";
 import { useRouter } from "next/navigation";
 import { useUpdateClient } from "@/utils/hooks";
-import type { ProductCardProp } from "@/utils/types";
+import type { ProductSnippetProp } from "@/utils/types";
 import { cardVariant } from "@/libs/framer-motion/motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useViewedProducts } from "@/libs/zustand/useViewedProduct";
 
-interface AnimateProductCardProp extends ProductCardProp {
+interface AnimateProductSnippetProp extends ProductSnippetProp {
   index: number;
   size?: string;
 }
@@ -24,7 +24,7 @@ export default function ProductCards({
   id,
   index,
   size,
-}: AnimateProductCardProp) {
+}: AnimateProductSnippetProp) {
   const router = useRouter();
 
   // ADD TO PREVIOUSLY VIEWED PRODUCTS
@@ -68,20 +68,20 @@ export default function ProductCards({
     >
       {/* ADD TO CART BTN */}
       <div
-        className="brand-ease absolute w-10 rounded-r-2xl overflow-hidden top-6 
-        right-0 group-hover:translate-x-10 bg-brand-dark"
+        className="brand-ease absolute right-0 top-6 w-10 overflow-hidden 
+        rounded-r-2xl bg-brand-dark group-hover:translate-x-10"
       >
         {productAmount <= 0 ? (
           <button
             type="button"
             onClick={() => handleAddToCart()}
-            className="brand-ease h-16 flex items-center justify-center w-full 
+            className="brand-ease flex h-16 w-full items-center justify-center 
             hover:bg-brand-base"
           >
             <FontAwesomeIcon icon={faPlus} className="text-xl" />
           </button>
         ) : (
-          <div className="grid grid-rows-4 h-40 items-center">
+          <div className="grid h-40 grid-rows-4 items-center">
             <button
               type="button"
               onClick={() => increase(id)}
@@ -91,7 +91,7 @@ export default function ProductCards({
               <FontAwesomeIcon icon={faPlus} />
             </button>
             <span
-              className="brand-ease flex h-full row-span-2 items-center justify-center 
+              className="brand-ease row-span-2 flex h-full items-center justify-center 
              text-xl text-brand-light"
             >
               {productAmount}
@@ -110,8 +110,8 @@ export default function ProductCards({
       <div
         onClick={() => handleAddToViewed()}
         className={`${
-          size === "small" ? "w-56 h-72" : "h-80 w-72"
-        } cursor-pointer overflow-hidden rounded-2xl bg-brand-dark z-10`}
+          size === "small" ? "h-72 w-56" : "h-80 w-72"
+        } z-10 cursor-pointer overflow-hidden rounded-2xl bg-brand-dark`}
       >
         {/* IMAGE */}
         <div className="relative h-[70%] w-full overflow-hidden">
@@ -129,7 +129,7 @@ export default function ProductCards({
           } flex h-[30%] w-full items-center`}
         >
           <div>
-            <p className="text-xs uppercase tracking-widest font-fira text-brand-gray">
+            <p className="font-fira text-xs uppercase tracking-widest text-brand-gray">
               {type}
             </p>
             <h3

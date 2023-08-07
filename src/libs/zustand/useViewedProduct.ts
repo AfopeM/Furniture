@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { ProductCardProp } from "@/utils/types";
+import type { ProductSnippetProp } from "@/utils/types";
 
 interface ViewedProductsProp {
-  viewed: ProductCardProp[];
-  addToViewed: (product: ProductCardProp) => void;
+  viewed: ProductSnippetProp[];
+  addToViewed: (product: ProductSnippetProp) => void;
 }
 
 export const useViewedProducts = create<ViewedProductsProp>()(
