@@ -3,17 +3,9 @@ import { BlurImage } from ".";
 import { useCart } from "@/libs/zustand";
 import { currencyFormat } from "@/utils";
 import { useRouter } from "next/navigation";
+import { CartItemsProp } from "@/utils/types";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-interface CartCardProp {
-  productId: string;
-  name: string;
-  image: string;
-  type: string;
-  price: number;
-  amount: number;
-}
 
 export default function CartCards({
   name,
@@ -21,8 +13,8 @@ export default function CartCards({
   price,
   image,
   amount,
-  productId,
-}: CartCardProp) {
+  id,
+}: CartItemsProp) {
   const router = useRouter();
   const { increase, decrease, remove } = useCart((state) => state);
 
@@ -34,7 +26,7 @@ export default function CartCards({
     >
       {/* CLOSE BTN */}
       <button
-        onClick={() => remove(productId)}
+        onClick={() => remove(id)}
         className="brand-ease absolute right-4 top-2 opacity-0 group-hover:opacity-100"
       >
         <FontAwesomeIcon
@@ -54,16 +46,19 @@ export default function CartCards({
 
       {/* PRODUCT NAME & TYPE */}
       <div
-        onClick={() => router.push(`/product/${productId}`)}
+        onClick={() => router.push(`/product/${id}`)}
         className="col-span-2 col-start-2 row-start-1 cursor-pointer justify-self-center
         text-center uppercase tracking-wide group-hover:row-span-2 group-hover:mt-6"
       >
-        <p className="font-fira text-xs text-brand-light/50 md:text-sm">
+        <p className="font-fira text-xs text-brand-light/75 md:text-sm">
           {type}
         </p>
         <h3 className="text-base font-medium leading-tight sm:leading-none md:text-xl">
           {name}
         </h3>
+        <span className="text-sm capitalize tracking-widest text-brand-light/40 group-hover:hidden">
+          qty:{amount}
+        </span>
       </div>
 
       {/* PRODUCT PRICE */}
@@ -72,7 +67,7 @@ export default function CartCards({
         bg-brand-base/25 py-2 text-center font-fira font-medium tracking-wider 
         text-brand-base group-hover:row-span-2 group-hover:mt-6 sm:w-2/3"
       >
-        {currencyFormat(price)}
+        {currencyFormat(price.amount)}
       </p>
 
       {/* PRODUCT QUANITITY */}
@@ -82,7 +77,7 @@ export default function CartCards({
         rounded-lg bg-brand-light group-hover:grid"
       >
         <button
-          onClick={() => decrease(productId)}
+          onClick={() => decrease(id)}
           className="brand-ease h-full pb-1 text-xl text-brand-base hover:bg-brand-base 
           hover:text-brand-light"
         >
@@ -90,7 +85,7 @@ export default function CartCards({
         </button>
         <p className="text-center text-sm text-brand-dark">{amount}</p>
         <button
-          onClick={() => increase(productId)}
+          onClick={() => increase(id)}
           className="brand-ease h-full text-xl text-brand-base hover:bg-brand-base 
           hover:text-brand-light"
         >

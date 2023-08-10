@@ -23,6 +23,6 @@ export const useViewedProducts = create<ViewedProductsProp>()(
         });
       },
     }),
-    { name: "viewed-product" }
+    { name: "viewed-product-storage" }
   )
 );

@@ -15,7 +15,7 @@ module.exports = {
       colors: {
         brand: {
           red: "rgb(232,50,57)",
-          light: "rgb(254,247,245)",
+          light: "rgb(254,250,252)",
           secondary: "rgb(243,173,150)",
           base: "rgb(233,94,51)",
           gray: "rgba(254,247,245,50%)",

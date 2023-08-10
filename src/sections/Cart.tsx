@@ -2,9 +2,15 @@
 import { useCart } from "@/libs/zustand";
 import { CartCards } from "@/components";
 import { currencyFormat } from "@/utils";
+import { useUpdateClient } from "@/hooks";
 import { useEffect, useState } from "react";
-import { useUpdateClient } from "@/utils/hooks";
+import { loadStripe } from "@stripe/stripe-js";
 import type { CartItemsProp } from "@/utils/types";
+//Probably have to change the localstorage system/state manager from zustand to stripe cart
+//maybe that will fix the issue... maybe SMH
+// const stripePromise = loadStripe(
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+// );
 
 interface CartProp {
   isCartOpen: boolean;
@@ -27,7 +33,7 @@ export default function Cart({ isCartOpen }: CartProp) {
       className={`${
         isCartOpen ? "translate-y-8" : "-translate-y-[32rem]"
       } brand-ease absolute z-10 h-[26rem] w-96 overflow-hidden rounded-xl 
-      bg-brand-light/5 backdrop-blur-2xl md:w-[32rem] md:-translate-x-[26rem]`}
+      bg-brand-light/5 backdrop-blur-2xl md:w-[32rem] md:-translate-x-[30rem]`}
     >
       <div
         className={`${
@@ -38,7 +44,7 @@ export default function Cart({ isCartOpen }: CartProp) {
       >
         {cart.length > 0 ? (
           cart.map((items) => {
-            return <CartCards key={items.productId} {...items} />;
+            return <CartCards key={items.id} {...items} />;
           })
         ) : (
           <p className="font-fira text-3xl font-light capitalize tracking-widest">
@@ -59,3 +65,5 @@ export default function Cart({ isCartOpen }: CartProp) {
     </aside>
   );
 }
+
+async function Checkout() {}

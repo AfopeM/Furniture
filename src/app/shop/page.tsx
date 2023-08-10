@@ -1,3 +1,4 @@
+"use client";
 import { Filter } from "@/sections";
 import { Hero, Title } from "@/components";
 

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { toast } from "react-hot-toast";
 import { persist } from "zustand/middleware";
 import type { CartItemsProp } from "@/utils/types";
 
@@ -20,7 +21,7 @@ export const useCart = create<CartProp>()(
 
       totalPrice: () => {
         const price = get().cart.reduce(
-          (acc, item) => acc + item.amount * item.price,
+          (acc, item) => acc + item.amount * item.price.amount,
           0
         );
         return price;
@@ -32,19 +33,17 @@ export const useCart = create<CartProp>()(
       },
 
       productAmount: (productId) => {
-        const amount = get().cart.find(
-          (item) => item.productId === productId
-        )?.amount;
+        const amount = get().cart.find((item) => item.id === productId)?.amount;
         return amount || 0;
       },
 
       addToCart: (product) => {
-        const inCart = get().cart.find(
-          (item) => item.productId === product.productId
-        );
+        const inCart = get().cart.find((item) => item.id === product.id);
         if (!inCart) {
           set((state) => {
+            const id = toast.loading("Adding 1 item...");
             state.cart.push(product);
+            toast.success(`${product.name} added to cart`, { id });
             return { ...state };
           });
         }
@@ -53,7 +52,7 @@ export const useCart = create<CartProp>()(
       increase: (productId) => {
         set((state) => {
           state.cart.forEach((item) => {
-            if (item.productId === productId) item.amount++;
+            if (item.id === productId) item.amount++;
           });
           return { ...state };
         });
@@ -63,7 +62,7 @@ export const useCart = create<CartProp>()(
         set((state) => {
           const newCart = state.cart
             .map((item) => {
-              if (item.productId === productId) item.amount--;
+              if (item.id === productId) item.amount--;
               return item;
             })
             .filter((item) => item.amount >= 1);
@@ -74,9 +73,7 @@ export const useCart = create<CartProp>()(
 
       remove: (productId) => {
         set((state) => {
-          const newCart = state.cart.filter(
-            (item) => item.productId !== productId
-          );
+          const newCart = state.cart.filter((item) => item.id !== productId);
           return { ...state, cart: newCart };
         });
       },

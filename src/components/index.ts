@@ -7,7 +7,7 @@ import BlurImage from "./BlurImage";
 import HomeCards from "./HomeCards";
 import CartCards from "./CartCards";
 import SeeMoreBtn from "./SeeMoreBtn";
-import ProductCards from "./ProductCards";
+import ProductCards, { ProductCardsSkeleton } from "./ProductCards";
 import CollectionCards from "./CollectionCards";
 export {
   Nav,
@@ -20,5 +20,6 @@ export {
   HomeCards,
   SeeMoreBtn,
   ProductCards,
+  ProductCardsSkeleton,
   CollectionCards,
 };

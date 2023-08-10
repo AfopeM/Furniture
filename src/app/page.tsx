@@ -3,24 +3,31 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { EmailForm } from "@/sections";
+import { useFetchProducts } from "@/hooks";
 import homeData from "@/../public/data/home.json";
 import { motion, AnimatePresence } from "framer-motion";
-import productData from "@/../public/data/products.json";
 import {
   switchBtnVariant,
   fadeInOutVariant,
 } from "@/libs/framer-motion/motion";
-import { Hero, Title, HomeCards, SeeMoreBtn, ProductCards } from "@/components";
+import {
+  Hero,
+  Title,
+  HomeCards,
+  SeeMoreBtn,
+  ProductCards,
+  ProductCardsSkeleton,
+} from "@/components";
 
 export default function Home() {
-  const { popular } = productData;
   const { whyChooseUs, testimonials } = homeData;
-  const [switchBtn, setSwitchBtn] = useState(false);
+  const [switchBtn, setSwitchBtn] = useState(true);
+  const popularProducts = useFetchProducts()?.slice(0, 4);
 
   return (
     <>
       <Hero>
-        <div className="max-w-lg md:max-w-xl lg:text-start lg:max-w-2xl">
+        <div className="max-w-lg md:max-w-xl lg:max-w-2xl lg:text-start">
           {/* TITLE */}
           <h1
             className="pb-4 text-5xl font-bold uppercase tracking-tight 
@@ -30,7 +37,7 @@ export default function Home() {
           </h1>
 
           {/* TAGLINE */}
-          <p className="font-fira pb-12 text-lg font-light text-brand-gray lg:text-xl">
+          <p className="pb-12 font-fira text-lg font-light text-brand-gray lg:text-xl">
             Top of the line furniture designed and crafted by the best artist
             solely to create a space that reflects you and what your love.
           </p>
@@ -38,7 +45,7 @@ export default function Home() {
           {/* SHOP BUTTON */}
           <Link
             href="/shop"
-            className="relative brand-ease rounded-xl bg-brand-base/25 
+            className="brand-ease relative rounded-xl bg-brand-base/25 
             px-8 py-4 tracking-wider text-brand-base hover:bg-brand-base 
             hover:px-12 hover:text-brand-light lg:px-16 lg:text-lg lg:hover:px-20"
           >
@@ -46,6 +53,7 @@ export default function Home() {
           </Link>
         </div>
       </Hero>
+
       <main className="space-y-16">
         {/* POPULAR TITLE */}
         <section className="space-y-8">
@@ -58,10 +66,7 @@ export default function Home() {
               <Title textSize="text-4xl" colour="text-brand-dark">
                 Popular Products
               </Title>
-              <p
-                className="font-fira font-light normal-case 
-              text-brand-darkgray pt-2"
-              >
+              <p className="pt-2 font-fira normal-case text-brand-darkgray/50">
                 Indulge in luxury with our exclusive collection of popular
                 furniture pieces.
               </p>
@@ -74,9 +79,17 @@ export default function Home() {
             className="brand-px flex flex-wrap items-center 
             justify-center gap-16"
           >
-            {popular.map((product, i) => {
-              return <ProductCards key={product.id} {...product} index={i} />;
-            })}
+            {popularProducts
+              ? popularProducts.map((product, i) => {
+                  return (
+                    <ProductCards index={i} {...product} key={product.id} />
+                  );
+                })
+              : Array(4)
+                  .fill(1)
+                  .map((item, i) => {
+                    return <ProductCardsSkeleton key={item + i} />;
+                  })}
           </div>
         </section>
 
@@ -98,9 +111,9 @@ export default function Home() {
             >
               <Image
                 fill
-                sizes="24vw"
                 src="/texture.webp"
                 alt="texture image"
+                sizes="(max-width:768px) 15vw, 20vw"
                 className="object-cover opacity-50"
               />
               <motion.div
@@ -111,10 +124,10 @@ export default function Home() {
               >
                 <Image
                   fill
-                  sizes="16vw"
                   src="/texture.webp"
                   alt="texture image"
                   className="object-cover"
+                  sizes="(max-width:768px) 10vw, 15vw"
                 />
               </motion.div>
             </button>
@@ -131,7 +144,7 @@ export default function Home() {
                   <Title textSize="text-3xl" colour="text-brand-dark">
                     why choose us
                   </Title>
-                  <p className="max-w-sm pt-2 font-fira font-light text-brand-dark/50">
+                  <p className="max-w-sm pt-2 font-fira text-brand-darkgray/50">
                     Our handcrafted furniture is designed to elevate any space
                     with unparalleled style and comfort.
                   </p>
@@ -147,7 +160,7 @@ export default function Home() {
                   <Title textSize="text-3xl" colour="text-brand-dark">
                     Testimonials
                   </Title>
-                  <p className="max-w-sm pt-2 font-fira font-light text-brand-dark/50">
+                  <p className="max-w-sm pt-2 font-fira text-brand-darkgray/50">
                     Our commitment to quality is evident in every piece of
                     furniture we create.
                   </p>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { currencyFormat } from "@/utils";
 import { useCart } from "@/libs/zustand";
 import { useRouter } from "next/navigation";
-import { useUpdateClient } from "@/utils/hooks";
+import { useUpdateClient } from "@/hooks";
 import type { ProductSnippetProp } from "@/utils/types";
 import { cardVariant } from "@/libs/framer-motion/motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -49,12 +49,12 @@ export default function ProductCards({
 
   function handleAddToCart() {
     const addProduct = {
-      productId: id,
-      name: name,
-      type: type,
-      price: price,
+      id,
+      name,
+      type,
+      price,
       amount: 1,
-      image: image,
+      image,
     };
     addToCart(addProduct);
   }
@@ -134,7 +134,7 @@ export default function ProductCards({
             </p>
             <h3
               className={`${
-                size === "small" ? "text-[17px]" : "text-xl"
+                size === "small" ? "text-[16.9px]" : "text-xl"
               } text-xl font-medium capitalize leading-tight`}
             >
               {name}
@@ -147,10 +147,38 @@ export default function ProductCards({
              tracking-wider text-brand-base group-hover:bg-brand-base
             group-hover:text-brand-light`}
           >
-            {currencyFormat(price)}
+            {currencyFormat(price.amount)}
           </span>
         </div>
       </div>
     </motion.article>
+  );
+}
+
+interface ProductCardsSkeletonProp {
+  size?: string;
+}
+
+export function ProductCardsSkeleton({ size }: ProductCardsSkeletonProp) {
+  return (
+    <article className="group relative">
+      <div
+        className={`${
+          size === "small" ? "h-72 w-56" : "h-80 w-72"
+        } z-10 overflow-hidden rounded-2xl bg-brand-dark`}
+      >
+        {/* IMAGE */}
+        <div className="h-[70%] w-full animate-pulse bg-brand-gray" />
+
+        {/* CONTENT */}
+        <div className="flex h-[30%] w-full items-center justify-around">
+          <div className="w-1/2 animate-pulse space-y-2">
+            <div className="h-4 w-1/2 rounded bg-brand-gray" />
+            <div className="h-6 w-full rounded bg-brand-gray" />
+          </div>
+          <div className="h-12 w-1/3 animate-pulse rounded bg-brand-gray" />
+        </div>
+      </div>
+    </article>
   );
 }

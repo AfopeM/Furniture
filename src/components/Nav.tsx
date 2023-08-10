@@ -4,7 +4,7 @@ import { Cart } from "@/sections";
 import { useCart } from "@/libs/zustand";
 import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@mantine/hooks";
-import { useUpdateClient } from "@/utils/hooks";
+import { useUpdateClient } from "@/hooks";
 import { useState, useEffect, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

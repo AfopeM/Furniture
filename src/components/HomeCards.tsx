@@ -51,8 +51,8 @@ export default function HomeCards({ type, name, icon, desc, index }: HomeCardsPr
               {name}
             </h3>
             <p
-              className="brand-ease font-fira font-light 
-              text-brand-dark/50 group-hover:text-brand-light/50"
+              className="brand-ease font-fira text-brand-dark/50 
+              group-hover:text-brand-light/50"
             >
               {desc}
             </p>
@@ -69,8 +69,8 @@ export default function HomeCards({ type, name, icon, desc, index }: HomeCardsPr
               className="mx-auto h-12 w-32"
             />
             <p
-              className="brand-ease font-fira font-light 
-              text-brand-dark/50 group-hover:text-brand-gray pb-2"
+              className="brand-ease font-fira text-brand-dark/50 
+              group-hover:text-brand-gray pb-2"
             >
               {desc}
             </p>

@@ -1,11 +1,10 @@
 "use client";
-import { ProductCards } from "@/components";
-import { useReducer, useState } from "react";
+import { useFetchProducts } from "@/hooks";
+import { useReducer, useState, useEffect } from "react";
 import type { ProductDetailProp } from "@/utils/types";
-import productData from "@/../public/data/products.json";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ProductCards, ProductCardsSkeleton } from "@/components";
 import { faFilter, faSortDown } from "@fortawesome/free-solid-svg-icons";
-
 interface FilterOptionsProp {
   name: string;
   list: string[];
@@ -44,34 +43,13 @@ type FilterPayload = {
   };
 };
 
-const optionList = productData.products.reduce((acc, product) => {
-  if (acc.length < 1) {
-    Object.entries(filter).map((f) => {
-      const filterName = f[0];
-
-      const newItems = {
-        name: filterName,
-        list: [[product[filterName as keyof ProductDetailProp]].toString()],
-      };
-
-      acc.push(newItems);
-    });
-    return acc;
-  }
-
-  acc.map((opt) => {
-    const val = product[opt.name as keyof ProductDetailProp];
-    if (!opt.list.includes(val as keyof ProductDetailProp)) {
-      opt.list.push(val as keyof ProductDetailProp);
-    }
-  });
-
-  return acc;
-}, [] as FilterOptionsProp[]);
-
 export default function Filter() {
-  const [products, setProducts] = useState(productData.products);
+  const initialProducts = useFetchProducts();
+  const [products, setProducts] = useState(initialProducts);
   const [openFilterMenu, setOpenFilterMenu] = useState(false);
+  const [optionList, setOptionList] = useState<FilterOptionsProp[] | undefined>(
+    undefined
+  );
 
   const [filterOptions, dispatch] = useReducer(
     (state: typeof filter, action: FilterPayload) => {
@@ -121,7 +99,7 @@ export default function Filter() {
             item[1].isSelected = false;
           });
 
-          setProducts(productData.products);
+          setProducts(initialProducts);
 
           return { ...state };
 
@@ -149,7 +127,7 @@ export default function Filter() {
 
               return newAcc;
             },
-            [...productData.products]
+            [...(initialProducts as ProductDetailProp[])]
           );
 
           setOpenFilterMenu(false);
@@ -163,101 +141,150 @@ export default function Filter() {
     filter
   );
 
+  //UPDATE OPTIONLIST AND PRODUCTS
+  useEffect(() => {
+    const setUp = () => {
+      setProducts(initialProducts);
+
+      const list = initialProducts?.reduce((acc, product) => {
+        if (acc.length < 1) {
+          Object.entries(filter).map((f) => {
+            const filterName = f[0];
+
+            const newItems = {
+              name: filterName,
+              list: [
+                [product[filterName as keyof ProductDetailProp]].toString(),
+              ],
+            };
+
+            acc.push(newItems);
+          });
+          return acc;
+        }
+
+        acc.map((opt) => {
+          const val = product[opt.name as keyof ProductDetailProp];
+          if (!opt.list.includes(val as keyof ProductDetailProp)) {
+            opt.list.push(val as keyof ProductDetailProp);
+          }
+        });
+
+        return acc;
+      }, [] as FilterOptionsProp[]);
+
+      setOptionList(list);
+    };
+    if (initialProducts !== null) setUp();
+  }, [initialProducts]);
+
   return (
     <>
       <aside className="brand-px sticky top-8 z-20">
         {/* DESKTOP FILTER */}
         <form
-          className="brand-ease hidden justify-between
-          rounded-xl bg-brand-dark px-8 py-6 xl:flex"
+          className="brand-ease hidden justify-between rounded-xl bg-brand-dark 
+          px-8 py-6 xl:flex"
         >
           {/* FILTER OPTIONS */}
-          {optionList.map((item) => {
-            const itemKey = item.name as keyof typeof filter;
-            const itemLength = filterOptions[itemKey].currentChoices.length;
-            return (
-              <div
-                key={item.name}
-                className="relative w-52 font-fira text-lg font-light 
-                text-brand-light/75"
-              >
-                <div
-                  onClick={() =>
-                    dispatch({
-                      type: FILTER_ACTIONS.SELECT,
-                      payload: {
-                        option: item.name,
-                      },
-                    })
-                  }
-                  className="brand-ease relative flex w-full 
+          {optionList
+            ? optionList.map((item) => {
+                const itemKey = item.name as keyof typeof filter;
+                const itemLength = filterOptions[itemKey].currentChoices.length;
+                return (
+                  <div
+                    key={item.name}
+                    className="relative w-52 font-fira text-lg font-light 
+                    text-brand-light/75"
+                  >
+                    <div
+                      onClick={() =>
+                        dispatch({
+                          type: FILTER_ACTIONS.SELECT,
+                          payload: {
+                            option: item.name,
+                          },
+                        })
+                      }
+                      className="brand-ease relative flex w-full 
                   cursor-pointer justify-between rounded-lg 
                   bg-brand-light/20 px-4 py-2 hover:bg-brand-gray/40"
-                >
-                  <p className="capitalize">
-                    {itemLength === 0
-                      ? item.name
-                      : itemLength < 2
-                      ? filterOptions[itemKey].currentChoices[0].id
-                      : `${itemLength} selected`}
-                  </p>
-                  <FontAwesomeIcon
-                    icon={faSortDown}
-                    className={`${
-                      filterOptions[item.name as keyof typeof filter].isSelected
-                        ? "rotate-0"
-                        : "rotate-180"
-                    } pointer-events-none h-auto w-2 brand-ease pb-1`}
-                  />
-                </div>
-                <ul
-                  className={`${
-                    filterOptions[itemKey].isSelected ? "py-4" : "h-0"
-                  } absolute mt-2 w-full space-y-2 overflow-hidden rounded-xl 
+                    >
+                      <p className="capitalize">
+                        {itemLength === 0
+                          ? item.name
+                          : itemLength < 2
+                          ? filterOptions[itemKey].currentChoices[0].id
+                          : `${itemLength} selected`}
+                      </p>
+                      <FontAwesomeIcon
+                        icon={faSortDown}
+                        className={`${
+                          filterOptions[item.name as keyof typeof filter]
+                            .isSelected
+                            ? "rotate-0"
+                            : "rotate-180"
+                        } brand-ease pointer-events-none h-auto w-2 pb-1`}
+                      />
+                    </div>
+                    <ul
+                      className={`${
+                        filterOptions[itemKey].isSelected ? "py-4" : "h-0"
+                      } absolute mt-2 w-full space-y-2 overflow-hidden rounded-xl 
                   bg-brand-darkgray px-6 duration-200 ease-in-out`}
-                >
-                  {item.list.map((opt) => {
-                    const isSelected = filterOptions[
-                      itemKey
-                    ].currentChoices.find((cur) => cur.id === opt)?.checked;
-                    return (
-                      <li
-                        key={opt}
-                        onClick={(e) =>
-                          dispatch({
-                            type: FILTER_ACTIONS.PICK,
-                            payload: { option: item.name, choice: e },
-                          })
-                        }
-                        className="group flex w-full cursor-pointer 
+                    >
+                      {item.list.map((opt) => {
+                        const isSelected = filterOptions[
+                          itemKey
+                        ].currentChoices.find((cur) => cur.id === opt)?.checked;
+                        return (
+                          <li
+                            key={opt}
+                            onClick={(e) =>
+                              dispatch({
+                                type: FILTER_ACTIONS.PICK,
+                                payload: { option: item.name, choice: e },
+                              })
+                            }
+                            className="group flex w-full cursor-pointer 
                         items-center gap-2 rounded-md px-2 hover:bg-brand-light/10"
-                      >
-                        <input
-                          id={opt}
-                          type="checkbox"
-                          name={item.name}
-                          className={`${
-                            isSelected
-                              ? "border-brand-base bg-brand-base after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:content-['+']"
-                              : "border-brand-light/75 bg-transparent"
-                          } brand-ease pointer-events-none relative h-4 w-4 cursor-pointer
-                          appearance-none rounded-full border-2 border-solid text-md font-bold
+                          >
+                            <input
+                              id={opt}
+                              type="checkbox"
+                              name={item.name}
+                              className={`${
+                                isSelected
+                                  ? "border-brand-base bg-brand-base after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:content-['+']"
+                                  : "border-brand-light/75 bg-transparent"
+                              } brand-ease text-md pointer-events-none relative h-4 w-4
+                          cursor-pointer appearance-none rounded-full border-2 border-solid font-bold
                            text-brand-light group-hover:border-brand-base`}
-                        />
-                        <label
-                          htmlFor={opt}
-                          className="brand-ease pointer-events-none
+                            />
+                            <label
+                              htmlFor={opt}
+                              className="brand-ease pointer-events-none
                           text-brand-light/75 group-hover:text-brand-base"
-                        >
-                          {opt}
-                        </label>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            );
-          })}
+                            >
+                              {opt}
+                            </label>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })
+            : Array(3)
+                .fill(1)
+                .map((item, i) => {
+                  return (
+                    <div
+                      key={item + i}
+                      className="h-10 w-52 animate-pulse rounded bg-brand-gray"
+                    />
+                  );
+                })}
 
           {/* FILTER BUTTONS */}
           <button
@@ -322,7 +349,7 @@ export default function Filter() {
             overflow-hidden rounded-xl bg-brand-dark xl:hidden`}
           >
             {/* FILTER OPTIONS */}
-            {optionList.map((item) => {
+            {optionList?.map((item) => {
               const itemKey = item.name as keyof typeof filter;
               const itemLength = filterOptions[itemKey].currentChoices.length;
               return (
@@ -356,7 +383,7 @@ export default function Filter() {
                         filterOptions[itemKey].isSelected
                           ? "rotate-0"
                           : "rotate-180"
-                      } pb-1 brand-ease pointer-events-none h-auto w-2`}
+                      } brand-ease pointer-events-none h-auto w-2 pb-1`}
                     />
                   </div>
                   <ul
@@ -387,7 +414,7 @@ export default function Filter() {
                             name={item.name}
                             className={`${
                               isSelected
-                                ? "border-brand-base bg-brand-base after:text-brand-light after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:content-['+']"
+                                ? "border-brand-base bg-brand-base after:absolute after:left-1/2 after:top-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:text-brand-light after:content-['+']"
                                 : "border-brand-light/75 bg-transparent"
                             } pointer-events-none relative h-4 w-4 appearance-none 
                             rounded-full border-2 border-solid text-[15px] font-bold text-brand-gray 
@@ -407,6 +434,7 @@ export default function Filter() {
                 </div>
               );
             })}
+
             {/* FILTER BUTTONS */}
             <button
               type="submit"
@@ -444,13 +472,19 @@ export default function Filter() {
       </aside>
 
       {/* PRODUCTS */}
-      <section className="brand-px flex min-h-[250px] flex-wrap justify-center gap-y-12 gap-x-16 pb-8">
-        {products.length > 0 ? (
+      <section className="brand-px flex min-h-[250px] flex-wrap justify-center gap-x-16 gap-y-12 pb-8">
+        {products === null ? (
+          Array(8)
+            .fill(0)
+            .map((item, i) => {
+              return <ProductCardsSkeleton key={item + i} />;
+            })
+        ) : products.length > 0 ? (
           products.map((product, i) => {
             return <ProductCards key={i} index={i} {...product} />;
           })
         ) : (
-          <p className="text-center text-3xl md:text-4xl pt-12 text-brand-darkgray">
+          <p className="pt-12 text-center text-3xl text-brand-darkgray md:text-4xl">
             No Furniture matching this description was found in our inventory
           </p>
         )}
