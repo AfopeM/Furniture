@@ -12,7 +12,7 @@ export function getBaseUrl() {
   const url =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000"
-      : "http://furniturex";
+      : "https://furniturex.netlify.app";
 
   return url;
 }
