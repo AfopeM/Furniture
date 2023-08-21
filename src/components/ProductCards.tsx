@@ -13,7 +13,6 @@ import { useViewedProducts } from "@/libs/zustand/useViewedProduct";
 
 interface AnimateProductSnippetProp extends ProductSnippetProp {
   index: number;
-  size?: string;
 }
 
 export default function ProductCards({
@@ -23,7 +22,6 @@ export default function ProductCards({
   type,
   id,
   index,
-  size,
 }: AnimateProductSnippetProp) {
   const router = useRouter();
 
@@ -75,13 +73,13 @@ export default function ProductCards({
           <button
             type="button"
             onClick={() => handleAddToCart()}
-            className="brand-ease flex h-16 w-full items-center justify-center 
-            hover:bg-brand-base"
+            className="brand-ease hidden h-16 w-full items-center justify-center 
+            hover:bg-brand-base lg:flex"
           >
             <FontAwesomeIcon icon={faPlus} className="text-xl" />
           </button>
         ) : (
-          <div className="grid h-40 grid-rows-4 items-center">
+          <div className="hidden h-40 grid-rows-4 items-center lg:grid">
             <button
               type="button"
               onClick={() => increase(id)}
@@ -108,47 +106,80 @@ export default function ProductCards({
         )}
       </div>
       <div
-        onClick={() => handleAddToViewed()}
-        className={`${
-          size === "small" ? "h-72 w-56" : "h-80 w-72"
-        } z-10 cursor-pointer overflow-hidden rounded-2xl bg-brand-dark`}
+        className={`z-10 h-96 w-72 cursor-pointer overflow-hidden rounded-2xl bg-brand-dark`}
       >
         {/* IMAGE */}
-        <div className="relative h-[70%] w-full overflow-hidden">
+        <div
+          onClick={() => handleAddToViewed()}
+          className="relative h-[65%] w-full overflow-hidden lg:h-[75%]"
+        >
           <BlurImage
             imgSrc={image}
-            style="group-hover:scale-110"
+            style="lg:group-hover:scale-110"
             imgAlt={`Photo of ${name} ${type}`}
           />
         </div>
 
         {/* CONTENT */}
         <div
-          className={`${
-            size === "small" ? "justify-evenly" : "justify-around"
-          } flex h-[30%] w-full items-center`}
+          className={`grid-row-2 lg:grid-row-1 grid h-[35%] w-full grid-cols-3 items-center 
+          justify-around px-4 py-4 lg:h-[25%] lg:px-6`}
         >
-          <div>
+          <div className="col-span-2">
             <p className="font-fira text-xs uppercase tracking-widest text-brand-gray">
               {type}
             </p>
-            <h3
-              className={`${
-                size === "small" ? "text-[16.9px]" : "text-xl"
-              } text-xl font-medium capitalize leading-tight`}
-            >
+            <h3 className={`text-xl font-medium capitalize leading-tight`}>
               {name}
             </h3>
           </div>
           <span
-            className={`${
-              size === "small" ? "text-base" : "text-lg"
-            } brand-ease rounded-lg bg-brand-base/25 p-2 font-fira 
-             tracking-wider text-brand-base group-hover:bg-brand-base
-            group-hover:text-brand-light`}
+            className={`brand-ease rounded-lg bg-brand-base/25 p-2 text-center font-fira 
+            text-lg tracking-wider text-brand-base lg:group-hover:bg-brand-base
+            lg:group-hover:text-brand-light`}
           >
             {currencyFormat(price.amount)}
           </span>
+
+          {productAmount <= 0 ? (
+            <button
+              type="button"
+              onClick={() => handleAddToCart()}
+              className="brand-ease col-span-3 mx-auto h-3/4 w-3/4 rounded-md bg-brand-base/80
+              font-oswald text-lg font-light capitalize lg:hidden"
+            >
+              add to cart
+            </button>
+          ) : (
+            <div
+              className="col-span-3 mx-auto grid h-3/4 w-3/4 grid-cols-4 
+              items-center justify-center lg:hidden"
+            >
+              <button
+                type="button"
+                onClick={() => decrease(id)}
+                className="brand-ease h-full rounded-l-lg bg-brand-base/30 font-bold 
+                  text-brand-base hover:bg-brand-base hover:text-brand-light"
+              >
+                <FontAwesomeIcon icon={faMinus} />
+              </button>
+              <span
+                className="brand-ease col-span-2 col-start-2 flex h-full items-center 
+                  justify-center bg-brand-light/10 text-brand-light"
+              >
+                {productAmount}
+              </span>
+
+              <button
+                type="button"
+                onClick={() => increase(id)}
+                className="brand-ease h-full rounded-r-lg bg-brand-base/30 font-bold   
+                text-brand-base hover:bg-brand-base hover:text-brand-light/90"
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </motion.article>
@@ -163,9 +194,7 @@ export function ProductCardsSkeleton({ size }: ProductCardsSkeletonProp) {
   return (
     <article className="group relative">
       <div
-        className={`${
-          size === "small" ? "h-72 w-56" : "h-80 w-72"
-        } z-10 overflow-hidden rounded-2xl bg-brand-dark`}
+        className={`z-10 h-80 w-72 overflow-hidden rounded-2xl bg-brand-dark`}
       >
         {/* IMAGE */}
         <div className="h-[70%] w-full animate-pulse bg-brand-gray" />

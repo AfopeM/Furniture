@@ -20,7 +20,7 @@ export default function CartCards({
 
   return (
     <article
-      className="brand-ease group relative grid h-36 grid-cols-4 items-center 
+      className="brand-ease group relative grid h-32 grid-cols-4 items-center 
       justify-center overflow-hidden rounded-xl bg-brand-dark lg:h-24 
       lg:hover:h-36 lg:hover:grid-rows-3"
     >
@@ -48,8 +48,8 @@ export default function CartCards({
       {/* PRODUCT NAME & TYPE */}
       <div
         onClick={() => router.push(`/product/${id}`)}
-        className="col-span-2 col-start-2 cursor-pointer justify-self-center
-        text-center uppercase tracking-wide lg:group-hover:row-span-2 lg:group-hover:mt-6"
+        className="col-span-2 col-start-2 mt-4 cursor-pointer justify-self-center text-center
+        uppercase tracking-wide md:mt-0 lg:group-hover:row-span-2 lg:group-hover:mt-6"
       >
         <p className="font-fira text-xs text-brand-light/75 md:text-sm">
           {type}
@@ -67,9 +67,9 @@ export default function CartCards({
 
       {/* PRODUCT PRICE */}
       <p
-        className="brand-ease col-start-4 row-span-2 mr-5 w-4/5 justify-self-center 
+        className="brand-ease col-start-4 row-span-2 mr-5 mt-4 w-4/5 justify-self-center 
         rounded-lg bg-brand-base/25 py-2 text-center font-fira font-medium tracking-wider 
-        text-brand-base lg:group-hover:row-span-2 lg:group-hover:mt-6"
+        text-brand-base lg:mt-0 lg:group-hover:row-span-2 lg:group-hover:mt-6"
       >
         {currencyFormat(price.amount)}
       </p>

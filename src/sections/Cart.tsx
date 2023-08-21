@@ -40,7 +40,7 @@ export default function Cart({ isCartOpen }: CartProp) {
           cart.length > 0
             ? "space-y-4 overflow-y-scroll"
             : "flex items-center justify-center"
-        } my-6 h-[68.5%] px-4 md:px-8`}
+        } my-4 h-[73%] px-4 md:px-8 lg:my-6 lg:h-[68.4%]`}
       >
         {cart.length > 0 ? (
           cart.map((items) => {

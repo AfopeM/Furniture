@@ -261,12 +261,7 @@ export default function Product() {
             {relatedProduct
               ? relatedProduct.map((product, i) => {
                   return (
-                    <ProductCards
-                      key={product.id}
-                      index={i}
-                      size="small"
-                      {...product}
-                    />
+                    <ProductCards key={product.id} index={i} {...product} />
                   );
                 })
               : Array(3)
@@ -291,12 +286,7 @@ export default function Product() {
             {viewed
               ? viewed.map((product, i) => {
                   return (
-                    <ProductCards
-                      index={i}
-                      size="small"
-                      {...product}
-                      key={product.id}
-                    />
+                    <ProductCards index={i} {...product} key={product.id} />
                   );
                 })
               : Array(2)
