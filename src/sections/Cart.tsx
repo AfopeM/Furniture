@@ -32,7 +32,7 @@ export default function Cart({ isCartOpen }: CartProp) {
     <aside
       className={`${
         isCartOpen ? "translate-y-8" : "-translate-y-[32rem]"
-      } brand-ease absolute z-10 h-[26rem] w-96 overflow-hidden rounded-xl 
+      } brand-ease absolute z-10 h-[26rem] w-[22rem] overflow-hidden rounded-xl 
       bg-brand-light/5 backdrop-blur-2xl md:w-[32rem] md:-translate-x-[30rem]`}
     >
       <div
@@ -40,7 +40,7 @@ export default function Cart({ isCartOpen }: CartProp) {
           cart.length > 0
             ? "space-y-4 overflow-y-scroll"
             : "flex items-center justify-center"
-        } my-6 h-[68.5%] px-8`}
+        } my-6 h-[68.5%] px-4 md:px-8`}
       >
         {cart.length > 0 ? (
           cart.map((items) => {

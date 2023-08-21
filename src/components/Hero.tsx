@@ -30,7 +30,7 @@ const currentPage = usePathname();
       <section
         className={`${
           currentPage === "/"
-            ? "h-[75vh] lg:justify-start"
+            ? "h-[80vh] lg:justify-start"
             : "h-[40vh]"
         } brand-px flex w-full items-center relative justify-center text-center`}
       >

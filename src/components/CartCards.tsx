@@ -20,14 +20,15 @@ export default function CartCards({
 
   return (
     <article
-      className="brand-ease group relative grid h-24 grid-cols-4 items-center 
-      justify-center overflow-hidden rounded-xl bg-brand-dark hover:h-36 
-      hover:grid-rows-3"
+      className="brand-ease group relative grid h-36 grid-cols-4 items-center 
+      justify-center overflow-hidden rounded-xl bg-brand-dark lg:h-24 
+      lg:hover:h-36 lg:hover:grid-rows-3"
     >
       {/* CLOSE BTN */}
       <button
         onClick={() => remove(id)}
-        className="brand-ease absolute right-4 top-2 opacity-0 group-hover:opacity-100"
+        className="brand-ease absolute right-4 top-2 opacity-100 lg:opacity-0 
+        lg:group-hover:opacity-100"
       >
         <FontAwesomeIcon
           icon={faXmark}
@@ -36,7 +37,7 @@ export default function CartCards({
       </button>
 
       {/* PRODUCT IMAGE */}
-      <div className="relative h-full w-full group-hover:row-span-full">
+      <div className="relative row-span-2 h-full w-full lg:group-hover:row-span-full">
         <BlurImage
           imgSrc={image}
           size="(max-width:768px)50vw, 25vw"
@@ -47,34 +48,37 @@ export default function CartCards({
       {/* PRODUCT NAME & TYPE */}
       <div
         onClick={() => router.push(`/product/${id}`)}
-        className="col-span-2 col-start-2 row-start-1 cursor-pointer justify-self-center
-        text-center uppercase tracking-wide group-hover:row-span-2 group-hover:mt-6"
+        className="col-span-2 col-start-2 cursor-pointer justify-self-center
+        text-center uppercase tracking-wide lg:group-hover:row-span-2 lg:group-hover:mt-6"
       >
         <p className="font-fira text-xs text-brand-light/75 md:text-sm">
           {type}
         </p>
-        <h3 className="text-base font-medium leading-tight sm:leading-none md:text-xl">
+        <h3 className="text-sm font-medium leading-tight sm:leading-none md:text-xl">
           {name}
         </h3>
-        <span className="text-sm capitalize tracking-widest text-brand-light/40 group-hover:hidden">
+        <span
+          className="hidden text-sm capitalize tracking-widest text-brand-light/40 
+          lg:block lg:group-hover:hidden"
+        >
           qty:{amount}
         </span>
       </div>
 
       {/* PRODUCT PRICE */}
       <p
-        className="brand-ease col-start-4 mr-5 w-4/5 justify-self-center rounded-lg 
-        bg-brand-base/25 py-2 text-center font-fira font-medium tracking-wider 
-        text-brand-base group-hover:row-span-2 group-hover:mt-6 sm:w-2/3"
+        className="brand-ease col-start-4 row-span-2 mr-5 w-4/5 justify-self-center 
+        rounded-lg bg-brand-base/25 py-2 text-center font-fira font-medium tracking-wider 
+        text-brand-base lg:group-hover:row-span-2 lg:group-hover:mt-6"
       >
         {currencyFormat(price.amount)}
       </p>
 
       {/* PRODUCT QUANITITY */}
       <div
-        className="col-span-3 col-start-2 row-start-3 hidden h-2/3 w-3/4 grid-cols-3 
-        items-center justify-around self-start justify-self-center overflow-hidden 
-        rounded-lg bg-brand-light group-hover:grid"
+        className="col-span-2 col-start-2 grid h-1/2 w-3/4 grid-cols-3 items-center justify-around self-start 
+        justify-self-center overflow-hidden rounded-lg bg-brand-light lg:row-start-3 
+        lg:hidden lg:h-2/3 lg:group-hover:grid"
       >
         <button
           onClick={() => decrease(id)}

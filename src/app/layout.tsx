@@ -4,11 +4,16 @@ import { Footer } from "@/components";
 import { Toaster } from "react-hot-toast";
 import { Oswald, Fira_Sans_Condensed } from "next/font/google";
 
-const oswald = Oswald({ subsets: ["latin"], variable: "--font-oswald" });
+const oswald = Oswald({
+  subsets: ["latin"],
+  variable: "--font-oswald",
+  display: "swap",
+});
 const fira = Fira_Sans_Condensed({
   subsets: ["latin"],
   weight: ["300", "400", "600"],
   variable: "--font-fira",
+  display: "swap",
 });
 
 export const metadata: Metadata = {

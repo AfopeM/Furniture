@@ -71,8 +71,8 @@ export default function Nav() {
           <span
             className={`${
               amountInCart <= 0 ? "hidden" : "block"
-            } absolute -translate-y-3 translate-x-3 items-start justify-center
-          rounded-md bg-brand-base px-2 py-0.5 text-sm font-medium text-brand-light`}
+            } absolute -translate-y-3 translate-x-3 items-start justify-center rounded-md 
+            bg-brand-base px-2 py-0.5 text-sm font-medium text-brand-light`}
           >
             {amountInCart}
           </span>
@@ -87,9 +87,9 @@ export default function Nav() {
         href="/"
         className={`${
           currentPage === "/" ? "text-brand-light" : "text-brand-gray"
-        } brand-ease group col-start-2 row-start-1 justify-self-center text-2xl 
-        font-bold tracking-tight hover:text-brand-light md:col-start-1 
-        md:justify-self-start md:text-3xl`}
+        } brand-ease group col-start-2 row-start-1 justify-self-center text-xl 
+        font-bold tracking-tight hover:text-brand-light sm:text-2xl 
+        md:col-start-1 md:justify-self-start md:text-3xl`}
       >
         Furniture{" "}
         <span
@@ -113,15 +113,15 @@ export default function Nav() {
       <aside
         className={`${
           openMobileMenu ? "translate-x-0" : "translate-x-full"
-        } brand-ease fixed left-0 top-0 z-20 flex h-screen w-full 
+        } brand-ease fixed left-0 top-0 z-20 flex h-full w-full 
         flex-col items-center gap-24 bg-brand-dark bg-opacity-80 p-8  
         backdrop-blur-md md:translate-x-full`}
       >
         {/* CLOSE BTN */}
         <button
           onClick={() => handleOpenMobileMenu(false)}
-          className="brand-ease group flex h-6 w-6 items-center
-          justify-center self-end text-end hover:scale-110"
+          className="brand-ease group flex h-6 w-6
+          items-center justify-center self-end text-end hover:scale-110"
         >
           <FontAwesomeIcon
             icon={faXmark}
