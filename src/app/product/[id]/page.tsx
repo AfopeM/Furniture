@@ -8,18 +8,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import type { ProductDetailProp, ProductSnippetProp } from "@/utils/types";
 import {
-  ProductCards,
   Title,
   Hero,
   BlurImage,
+  ProductCards,
   ProductCardsSkeleton,
 } from "@/components";
 import {
-  faMinus,
   faPlus,
+  faMinus,
   faRuler,
-  faEarthAfrica,
   faHammer,
+  faEarthAfrica,
 } from "@fortawesome/free-solid-svg-icons";
 
 function ProductTag({ value, icon }: { value: string; icon: IconProp }) {
@@ -130,6 +130,8 @@ export default function Product() {
                     <div className=" h-full w-full animate-pulse bg-brand-gray" />
                   )}
                 </div>
+
+                {/* PRODUCT CONTENT */}
                 <div
                   className="grid h-1/2 w-full grid-cols-1 grid-rows-5 items-center rounded-t-xl 
                   bg-brand-dark px-6 py-4 md:h-2/5 md:grid-cols-3 md:grid-rows-2 md:gap-x-4 md:p-8 

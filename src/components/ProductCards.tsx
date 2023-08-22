@@ -123,7 +123,7 @@ export default function ProductCards({
         {/* CONTENT */}
         <div
           className={`grid-row-2 lg:grid-row-1 grid h-[35%] w-full grid-cols-3 items-center 
-          justify-around px-4 py-4 lg:h-[25%] lg:px-6`}
+          px-6 py-4 lg:h-[25%] lg:px-6`}
         >
           <div className="col-span-2">
             <p className="font-fira text-xs uppercase tracking-widest text-brand-gray">

@@ -4,7 +4,7 @@ import { useCart } from "@/libs/zustand";
 import { currencyFormat } from "@/utils";
 import { useRouter } from "next/navigation";
 import { CartItemsProp } from "@/utils/types";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function CartCards({
@@ -82,18 +82,18 @@ export default function CartCards({
       >
         <button
           onClick={() => decrease(id)}
-          className="brand-ease h-full pb-1 text-xl text-brand-base hover:bg-brand-base 
+          className="brand-ease h-full text-xs text-brand-base hover:bg-brand-base 
           hover:text-brand-light"
         >
-          -
+          <FontAwesomeIcon icon={faMinus} />
         </button>
         <p className="text-center text-sm text-brand-dark">{amount}</p>
         <button
           onClick={() => increase(id)}
-          className="brand-ease h-full text-xl text-brand-base hover:bg-brand-base 
-          hover:text-brand-light"
+          className="brand-ease h-full text-xs text-brand-base 
+          hover:bg-brand-base hover:text-brand-light"
         >
-          +
+          <FontAwesomeIcon icon={faPlus} />
         </button>
       </div>
     </article>

@@ -21,10 +21,12 @@ export default function BlurImage({
       src={imgSrc}
       alt={imgAlt}
       sizes={size ? size : `50vw`}
-      className={`${
-        isLoading ? "blur-2xl grayscale" : "blur-0 grayscale-0"
-      } object-cover ${style} brand-ease`}
       onLoadingComplete={() => setIsLoading(false)}
+      className={`${
+        isLoading
+          ? "scale-110 blur-2xl grayscale"
+          : "scale-100 blur-0 grayscale-0"
+      } object-cover ${style} brand-ease`}
     />
   );
 }
