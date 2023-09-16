@@ -4,7 +4,6 @@ import Title from "./Title";
 import Footer from "./Footer";
 import BlogCards from "./BlogCards";
 import BlurImage from "./BlurImage";
-import HomeCards from "./HomeCards";
 import CartCards from "./CartCards";
 import SeeMoreBtn from "./SeeMoreBtn";
 import CollectionCards from "./CollectionCards";
@@ -17,7 +16,6 @@ export {
   CartCards,
   BlogCards,
   BlurImage,
-  HomeCards,
   SeeMoreBtn,
   ProductCard,
   ProductCardSkeleton,

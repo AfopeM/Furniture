@@ -3,17 +3,12 @@ import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
 import { EmailForm } from "@/sections";
-import { useState, Suspense } from "react";
+import { motion } from "framer-motion";
 import homeData from "@/../public/data/home.json";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  switchBtnVariant,
-  fadeInOutVariant,
-} from "@/libs/framer-motion/motion";
+import { cardVariant } from "@/libs/framer-motion/motion";
 import {
   Hero,
   Title,
-  HomeCards,
   SeeMoreBtn,
   ProductCard,
   ProductCardSkeleton,
@@ -22,11 +17,8 @@ import { getPopularProducts } from "@/api-layer/stripe";
 
 export default function Home() {
   const { whyChooseUs, testimonials } = homeData;
-  const [switchBtn, setSwitchBtn] = useState(true);
-
   const { data: popular, error } = useSWR("allProducts", getPopularProducts);
 
-  console.log();
   return (
     <>
       <Hero>
@@ -98,106 +90,131 @@ export default function Home() {
           </div>
         </section>
 
-        {/* WHY CHOOSE US & TESTIMONIALS */}
+        {/* WHY CHOOSE US */}
         <section className="brand-px">
           {/* TITLE */}
           <div
-            className="mb-16 flex flex-col items-center gap-8 
-            rounded-lg bg-brand-dark/5 px-12 py-8 text-center 
-            md:flex-row-reverse md:justify-between md:text-start 
-            lg:justify-around"
+            className="flex flex-col items-center justify-center rounded-lg 
+            bg-brand-dark/5 px-12 py-8 text-center lg:flex-row lg:gap-16 lg:text-start"
           >
-            {/* SWITCH BUTTON */}
-            <button
-              aria-label=""
-              type="button"
-              onClick={() => setSwitchBtn((prev) => !prev)}
-              className="relative h-20 w-40 overflow-hidden 
-              rounded-full bg-brand-base"
-            >
-              <Image
-                fill
-                src="/texture.webp"
-                alt="texture image"
-                sizes="(max-width:768px) 15vw, 20vw"
-                className="object-cover opacity-50"
-              />
-              <motion.div
-                variants={switchBtnVariant(switchBtn)}
-                initial="initial"
-                animate="animate"
-                className="absolute h-14 w-14 overflow-hidden rounded-full"
-              >
-                <Image
-                  fill
-                  src="/texture.webp"
-                  alt="texture image"
-                  className="object-cover"
-                  sizes="(max-width:768px) 10vw, 15vw"
-                />
-              </motion.div>
-            </button>
-
-            <AnimatePresence mode="wait">
-              {switchBtn ? (
-                <motion.div
-                  key={"why choose us"}
-                  variants={fadeInOutVariant}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Title textSize="text-3xl" colour="text-brand-dark">
-                    why choose us
-                  </Title>
-                  <p className="max-w-sm pt-2 font-fira text-brand-darkgray/50">
-                    Our handcrafted furniture is designed to elevate any space
-                    with unparalleled style and comfort.
-                  </p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key={"Testimonials"}
-                  variants={fadeInOutVariant}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                >
-                  <Title textSize="text-3xl" colour="text-brand-dark">
-                    Testimonials
-                  </Title>
-                  <p className="max-w-sm pt-2 font-fira text-brand-darkgray/50">
-                    Our commitment to quality is evident in every piece of
-                    furniture we create.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <Title textSize="text-3xl" colour="text-brand-dark">
+              why choose us
+            </Title>
+            <p className="max-w-sm pt-2 font-fira text-brand-darkgray/50">
+              Our handcrafted furniture is designed to elevate any space with
+              unparalleled style and comfort.
+            </p>
           </div>
 
-          {/* CARDS */}
-          <div className="flex flex-wrap justify-center gap-8">
-            {switchBtn
-              ? whyChooseUs.map((us, i) => {
-                  return (
-                    <HomeCards
-                      key={us.name}
-                      type="Why Choose Us"
-                      {...us}
-                      index={i + 1}
+          {/* CONTENT */}
+          <div className="my-8 flex flex-wrap justify-center gap-8">
+            {whyChooseUs.map((us, i) => {
+              return (
+                <motion.article
+                  key={i}
+                  exit="exit"
+                  animate="animate"
+                  initial="initial"
+                  whileHover="whileHover"
+                  variants={cardVariant(i, 0.2)}
+                  className="group flex max-w-sm items-center space-y-2 
+                  overflow-hidden rounded-xl text-center"
+                >
+                  <div
+                    className="brand-ease h-full bg-brand-dark/5 px-10 
+                    py-6 group-hover:bg-brand-dark"
+                  >
+                    <span
+                      className="brand-ease mx-auto flex max-w-max items-center 
+                      justify-center rounded-xl bg-brand-dark p-3 text-brand-base 
+                      group-hover:bg-brand-base/25"
+                    >
+                      <Image
+                        width={0}
+                        height={0}
+                        src={us.icon}
+                        alt={us.name}
+                        sizes="5vw"
+                        className="h-8 w-8 object-contain"
+                      />
+                    </span>
+                    <h3
+                      className="brand-ease py-2 text-2xl font-medium
+                      capitalize text-brand-dark group-hover:text-brand-light"
+                    >
+                      {us.name}
+                    </h3>
+                    <p
+                      className="brand-ease font-fira text-brand-dark/50 
+                      group-hover:text-brand-light/50"
+                    >
+                      {us.desc}
+                    </p>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* TESTIMONIALS */}
+        <section className="brand-px">
+          {/* TITLE */}
+          <div
+            className="flex flex-col items-center justify-center rounded-lg 
+            bg-brand-dark/5 px-12 py-8 text-center lg:flex-row lg:gap-16 lg:text-start"
+          >
+            <Title textSize="text-3xl" colour="text-brand-dark">
+              Testimonials
+            </Title>
+            <p className="max-w-sm pt-2 font-fira text-brand-darkgray/50">
+              Our commitment to quality is evident in every piece of furniture
+              we create.
+            </p>
+          </div>
+
+          {/* CONTENT */}
+          <div className="my-8 flex flex-wrap justify-center gap-8">
+            {testimonials.map((test, i) => {
+              return (
+                <motion.article
+                  key={i}
+                  exit="exit"
+                  animate="animate"
+                  initial="initial"
+                  whileHover="whileHover"
+                  variants={cardVariant(i, 0.2)}
+                  className="group flex max-w-sm items-center space-y-2 
+                  overflow-hidden rounded-xl text-center"
+                >
+                  <div
+                    className="brand-ease h-full bg-brand-dark/5 px-10 
+                    py-6 group-hover:bg-brand-dark"
+                  >
+                    <Image
+                      width={0}
+                      height={0}
+                      src={test.icon}
+                      alt={test.name}
+                      sizes="5vw"
+                      className="mx-auto h-12 w-32"
                     />
-                  );
-                })
-              : testimonials.map((test, i) => {
-                  return (
-                    <HomeCards
-                      key={test.name}
-                      type="testimonials"
-                      {...test}
-                      index={i + 1}
-                    />
-                  );
-                })}
+                    <p
+                      className="brand-ease pb-2 font-fira text-brand-dark/50 
+                    group-hover:text-brand-gray"
+                    >
+                      {test.desc}
+                    </p>
+                    <h3
+                      className="brand-ease text-2xl font-medium capitalize text-brand-dark 
+                    group-hover:text-brand-light"
+                    >
+                      {test.name}
+                    </h3>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
         </section>
 

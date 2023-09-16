@@ -3,8 +3,8 @@ import { BlurImage } from ".";
 import { motion } from "framer-motion";
 import { currencyFormat } from "@/utils";
 import { useCart } from "@/libs/zustand";
-import { useRouter } from "next/navigation";
 import { useUpdateClient } from "@/hooks";
+import { useRouter } from "next/navigation";
 import type { ProductSnippetProp } from "@/utils/types";
 import { cardVariant } from "@/libs/framer-motion/motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -109,21 +109,23 @@ export function ProductCard({
         className={`z-10 h-96 w-72 cursor-pointer overflow-hidden rounded-2xl bg-brand-dark`}
       >
         {/* IMAGE */}
-        <div
+        <button
+          type="button"
           onClick={() => handleAddToViewed()}
-          className="relative h-[65%] w-full overflow-hidden lg:h-[75%]"
+          aria-label={`${name} image button`}
+          className="relative h-[65%] w-full overflow-hidden lg:h-[70%]"
         >
           <BlurImage
             imgSrc={image}
             style="lg:group-hover:scale-110"
             imgAlt={`Photo of ${name} ${type}`}
           />
-        </div>
+        </button>
 
         {/* CONTENT */}
         <div
           className={`grid-row-2 lg:grid-row-1 grid h-[35%] w-full grid-cols-3 items-center 
-          px-6 py-4 lg:h-[25%] lg:px-6`}
+          px-6 py-4 lg:h-[30%] lg:px-6`}
         >
           <div className="col-span-2">
             <p className="font-fira text-xs uppercase tracking-widest text-brand-gray">

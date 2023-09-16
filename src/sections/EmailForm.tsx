@@ -139,16 +139,16 @@ export default function EmailForm() {
                     payload: { address: e.target.value },
                   })
                 }
-                className="h-10 w-3/4 bg-transparent text-brand-gray 
-                focus:outline-none"
                 placeholder="Enter your email"
+                className="h-10 w-3/4 bg-transparent text-brand-gray focus:text-brand-base 
+                focus:outline-none"
               />
               <button
                 type="submit"
+                aria-label="submit form"
                 onClick={(e) => handleSubmit(e)}
-                className="brand-ease rounded-xl 
-              bg-brand-base/10 px-6 py-4 text-brand-base 
-              hover:bg-brand-base hover:text-brand-light"
+                className="brand-ease rounded-xl bg-brand-base/10 px-6 py-4 
+                text-brand-base hover:bg-brand-base hover:text-brand-light"
               >
                 Subscribe
               </button>
@@ -160,11 +160,9 @@ export default function EmailForm() {
                     : state.isValid
                     ? ""
                     : "translate-y-10"
-                } 
-              brand-ease absolute bottom-0 left-1/2 -z-10 w-1/2 
-              -translate-x-1/2 rounded-bl-xl rounded-br-xl 
-              bg-brand-red/25 py-2 font-bold tracking-wider 
-              text-brand-red`}
+                } brand-ease absolute bottom-0 left-1/2 -z-10 w-1/2 -translate-x-1/2 
+                rounded-bl-xl rounded-br-xl bg-brand-red/25 py-2 font-bold 
+                tracking-wider text-brand-red`}
               >
                 Invalid Email
               </span>
