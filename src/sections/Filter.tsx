@@ -3,7 +3,7 @@ import { useFetchProducts } from "@/hooks";
 import { useReducer, useState, useEffect } from "react";
 import type { ProductDetailProp } from "@/utils/types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ProductCards, ProductCardsSkeleton } from "@/components";
+import { ProductCard, ProductCardSkeleton } from "@/components";
 import { faFilter, faSortDown } from "@fortawesome/free-solid-svg-icons";
 interface FilterOptionsProp {
   name: string;
@@ -477,11 +477,11 @@ export default function Filter() {
           Array(8)
             .fill(0)
             .map((item, i) => {
-              return <ProductCardsSkeleton key={item + i} />;
+              return <ProductCardSkeleton key={item + i} />;
             })
         ) : products.length > 0 ? (
           products.map((product, i) => {
-            return <ProductCards key={i} index={i} {...product} />;
+            return <ProductCard key={i} index={i} {...product} />;
           })
         ) : (
           <p className="pt-12 text-center text-3xl text-brand-darkgray md:text-4xl">

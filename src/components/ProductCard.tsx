@@ -15,7 +15,7 @@ interface AnimateProductSnippetProp extends ProductSnippetProp {
   index: number;
 }
 
-export default function ProductCards({
+export function ProductCard({
   image,
   name,
   price,
@@ -186,15 +186,11 @@ export default function ProductCards({
   );
 }
 
-interface ProductCardsSkeletonProp {
-  size?: string;
-}
-
-export function ProductCardsSkeleton({ size }: ProductCardsSkeletonProp) {
+export function ProductCardSkeleton() {
   return (
     <article className="group relative">
       <div
-        className={`z-10 h-80 w-72 overflow-hidden rounded-2xl bg-brand-dark`}
+        className={`z-10 h-96 w-72 overflow-hidden rounded-2xl bg-brand-dark`}
       >
         {/* IMAGE */}
         <div className="h-[70%] w-full animate-pulse bg-brand-gray" />

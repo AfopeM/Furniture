@@ -1,18 +1,3 @@
-export interface ProductDetailProp {
-  id: string;
-  type: string;
-  name: string;
-  desc: string;
-  image: string;
-  origin: string;
-  material: string;
-  dimension: string;
-  price: {
-    id: string;
-    amount: number;
-  };
-}
-
 export interface ProductSnippetProp {
   id: string;
   name: string;
@@ -22,6 +7,12 @@ export interface ProductSnippetProp {
     id: string;
     amount: number;
   };
+}
+export interface ProductDetailProp extends ProductSnippetProp {
+  desc: string;
+  origin: string;
+  material: string;
+  dimension: string;
 }
 
 export interface CartItemsProp extends ProductSnippetProp {

@@ -1,9 +1,9 @@
 "use client";
+import useSWR from "swr";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { EmailForm } from "@/sections";
-import { useFetchProducts } from "@/hooks";
+import { useState, Suspense } from "react";
 import homeData from "@/../public/data/home.json";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -15,15 +15,18 @@ import {
   Title,
   HomeCards,
   SeeMoreBtn,
-  ProductCards,
-  ProductCardsSkeleton,
+  ProductCard,
+  ProductCardSkeleton,
 } from "@/components";
+import { getPopularProducts } from "@/api-layer/stripe";
 
 export default function Home() {
   const { whyChooseUs, testimonials } = homeData;
   const [switchBtn, setSwitchBtn] = useState(true);
-  const popularProducts = useFetchProducts()?.slice(0, 4);
 
+  const { data: popular, error } = useSWR("allProducts", getPopularProducts);
+
+  console.log();
   return (
     <>
       <Hero>
@@ -44,10 +47,11 @@ export default function Home() {
 
           {/* SHOP BUTTON */}
           <Link
+            as={"/shop"}
             href="/shop"
             className="brand-ease relative rounded-xl bg-brand-base/25 
             px-8 py-4 tracking-wider text-brand-base hover:bg-brand-base 
-            hover:px-12 hover:text-brand-light lg:px-16 lg:text-lg lg:hover:px-20"
+            hover:text-brand-light lg:px-16 lg:text-lg lg:hover:px-20"
           >
             Shop Now
           </Link>
@@ -58,9 +62,8 @@ export default function Home() {
         {/* POPULAR TITLE */}
         <section className="space-y-8">
           <div
-            className="brand-px flex flex-col items-start 
-            justify-between gap-4 bg-brand-dark/5 py-12 
-            sm:flex-row sm:items-end"
+            className="brand-px flex flex-col items-start justify-between 
+            gap-4 bg-brand-dark/5 py-12 sm:flex-row sm:items-end"
           >
             <div>
               <Title textSize="text-4xl" colour="text-brand-dark">
@@ -79,17 +82,19 @@ export default function Home() {
             className="brand-px flex flex-wrap items-center 
             justify-center gap-16"
           >
-            {popularProducts
-              ? popularProducts.map((product, i) => {
-                  return (
-                    <ProductCards index={i} {...product} key={product.id} />
-                  );
+            {error ? (
+              <p>could not fetch popular Products</p>
+            ) : popular ? (
+              popular!.map((product, i) => {
+                return <ProductCard index={i} {...product} key={product.id} />;
+              })
+            ) : (
+              Array(4)
+                .fill(1)
+                .map((item, i) => {
+                  return <ProductCardSkeleton key={item + i} />;
                 })
-              : Array(4)
-                  .fill(1)
-                  .map((item, i) => {
-                    return <ProductCardsSkeleton key={item + i} />;
-                  })}
+            )}
           </div>
         </section>
 
@@ -104,6 +109,7 @@ export default function Home() {
           >
             {/* SWITCH BUTTON */}
             <button
+              aria-label=""
               type="button"
               onClick={() => setSwitchBtn((prev) => !prev)}
               className="relative h-20 w-40 overflow-hidden 

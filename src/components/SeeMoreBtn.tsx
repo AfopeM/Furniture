@@ -10,18 +10,16 @@ interface SeeBtnProp {
 export default function SeeMoreBtn({ href, alignment }: SeeBtnProp) {
   return (
     <Link
+      as={href}
       href={href}
-      className={`${alignment} brand-ease group/SeeMoreBtn flex max-w-max items-center 
-      gap-2 text-lg uppercase text-brand-secondary hover:text-brand-base group-hover:text-brand-base 
-      group-hover:opacity-100`}
+      className={`${alignment} group/SeeMoreBtn flex max-w-max items-center gap-2 
+      text-lg uppercase text-brand-secondary hover:text-brand-base hover:opacity-100`}
     >
-      See More
-      <span
-        className="brand-ease rotate-180 group-hover/SeeMoreBtn:rotate-45
-        group-hover:rotate-45 group-hover/SeeMoreBtn:opacity-100"
-      >
-        <FontAwesomeIcon icon={faArrowUp} />
-      </span>
+      <span className="brand-ease">See More</span>
+      <FontAwesomeIcon
+        icon={faArrowUp}
+        className="brand-ease rotate-180 group-hover/SeeMoreBtn:rotate-45"
+      />
     </Link>
   );
 }

@@ -11,8 +11,8 @@ import {
   Title,
   Hero,
   BlurImage,
-  ProductCards,
-  ProductCardsSkeleton,
+  ProductCard,
+  ProductCardSkeleton,
 } from "@/components";
 import {
   faPlus,
@@ -263,13 +263,13 @@ export default function Product() {
             {relatedProduct
               ? relatedProduct.map((product, i) => {
                   return (
-                    <ProductCards key={product.id} index={i} {...product} />
+                    <ProductCard key={product.id} index={i} {...product} />
                   );
                 })
               : Array(3)
                   .fill(1)
                   .map((item, i) => {
-                    return <ProductCardsSkeleton key={item + i} size="small" />;
+                    return <ProductCardSkeleton key={item + i} size="small" />;
                   })}
           </div>
         </section>
@@ -288,13 +288,13 @@ export default function Product() {
             {viewed
               ? viewed.map((product, i) => {
                   return (
-                    <ProductCards index={i} {...product} key={product.id} />
+                    <ProductCard index={i} {...product} key={product.id} />
                   );
                 })
               : Array(2)
                   .fill(1)
                   .map((item, i) => {
-                    return <ProductCardsSkeleton key={item + i} size="small" />;
+                    return <ProductCardSkeleton key={item + i} size="small" />;
                   })}
           </div>
         </section>

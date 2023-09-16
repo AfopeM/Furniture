@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const inventory = await stripeObj.products.list({
       expand: ["data.default_price"],
-      limit: 15,
+      limit: 4,
     });
 
     const products = inventory.data.map((item) => {
