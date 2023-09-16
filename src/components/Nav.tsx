@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
-import { Cart } from "@/sections";
 import { useCart } from "@/libs/zustand";
+import { useUpdateClient } from "@/hooks";
 import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@mantine/hooks";
-import { useUpdateClient } from "@/hooks";
 import { useState, useEffect, SetStateAction } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,8 +14,8 @@ import {
 
 export default function Nav() {
   const currentPage = usePathname();
-  const [openMobileMenu, setOpenMobileMenu] = useState(false);
   const mediaQuery = useMediaQuery("(min-width:768px)");
+  const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
   // NAV PAGES
   const routes = [
@@ -28,13 +27,6 @@ export default function Nav() {
   //OPEN & CLOSE MOBILE MENU
   function handleOpenMobileMenu(value: SetStateAction<boolean>) {
     setOpenMobileMenu(value);
-    handleOpenCart(false);
-  }
-
-  //OPEN & CLOSE CART
-  const [openCart, setOpenCart] = useState(false);
-  function handleOpenCart(value: boolean) {
-    setOpenCart(value);
   }
 
   // AMOUNT IN CART
@@ -49,41 +41,32 @@ export default function Nav() {
       className="brand-px relative z-30 grid h-20 w-full grid-cols-3 
       items-center justify-between uppercase"
     >
-      {/* CART */}
-      <div
-        className="relative justify-self-start 
-        md:col-start-3 md:justify-self-end"
+      {/* CART*/}
+      <Link
+        as={"/cart"}
+        href={"/cart"}
+        className="brand-ease group relative flex justify-center 
+        justify-self-start md:col-start-3 md:justify-self-end lg:hover:scale-105"
       >
-        {/* CART BUTTON */}
-        <button
-          type="button"
-          onClick={() => handleOpenCart(!openCart)}
-          className="group relative flex justify-center"
-        >
-          <div className="brand-ease group-hover:scale-110">
-            <FontAwesomeIcon
-              icon={faBagShopping}
-              className={`${
-                openCart ? "text-brand-light" : "text-brand-light/50"
-              } brand-ease pb-1 text-2xl group-hover:text-brand-light/75`}
-            />
-          </div>
-          <span
-            className={`${
-              amountInCart <= 0 ? "hidden" : "block"
-            } absolute -translate-y-3 translate-x-3 items-start justify-center rounded-md 
+        <FontAwesomeIcon
+          icon={faBagShopping}
+          className={`${
+            currentPage === "/cart" ? "text-brand-light" : "text-brand-light/50"
+          } brand-ease pb-1 text-2xl group-hover:text-brand-light/75`}
+        />
+        <span
+          className={`${
+            amountInCart <= 0 ? "hidden" : "block"
+          } absolute -translate-y-3 translate-x-3 items-start justify-center rounded-md 
             bg-brand-base px-2 py-0.5 text-sm font-medium text-brand-light`}
-          >
-            {amountInCart}
-          </span>
-        </button>
-
-        {/* CART DISPLAY */}
-        <Cart isCartOpen={openCart} />
-      </div>
+        >
+          {amountInCart}
+        </span>
+      </Link>
 
       {/* LOGO */}
       <Link
+        as={"/"}
         href="/"
         className={`${
           currentPage === "/" ? "text-brand-light" : "text-brand-gray"
@@ -102,6 +85,7 @@ export default function Nav() {
 
       {/* MOBILE MENU BUTTON */}
       <button
+        aria-label="mobile menu open button"
         onClick={() => handleOpenMobileMenu(true)}
         className="brand-ease relative col-start-3 justify-self-end 
         hover:scale-110 md:hidden"
@@ -119,9 +103,10 @@ export default function Nav() {
       >
         {/* CLOSE BTN */}
         <button
+          aria-label="mobile menu close button"
           onClick={() => handleOpenMobileMenu(false)}
-          className="brand-ease group flex h-6 w-6
-          items-center justify-center self-end text-end hover:scale-110"
+          className="brand-ease group flex h-6 w-6 items-center justify-center 
+          self-end text-end hover:scale-110"
         >
           <FontAwesomeIcon
             icon={faXmark}
@@ -131,6 +116,7 @@ export default function Nav() {
 
         {/* LOGO */}
         <Link
+          as={"/"}
           href="/"
           onClick={() => setOpenMobileMenu(false)}
           className={`${
@@ -148,14 +134,12 @@ export default function Nav() {
         </Link>
 
         {/* MENU */}
-        <ul
-          className="flex h-64 flex-col items-center justify-between 
-          text-lg"
-        >
+        <ul className="flex h-64 flex-col items-center justify-between text-lg">
           {routes.map((route) => {
             return (
               <li key={route.name} className="group relative pb-1">
                 <Link
+                  as={route.path}
                   href={route.path}
                   onClick={() => handleOpenMobileMenu(true)}
                   className={`${
@@ -175,18 +159,43 @@ export default function Nav() {
               </li>
             );
           })}
+          <li>
+            <Link
+              as={"/cart"}
+              href={"/cart"}
+              className="brand-ease group relative flex justify-center justify-self-start"
+            >
+              <FontAwesomeIcon
+                icon={faBagShopping}
+                className={`${
+                  currentPage === "/cart"
+                    ? "text-brand-light"
+                    : "text-brand-light/50"
+                } brand-ease pb-1 text-2xl group-hover:text-brand-light/75`}
+              />
+              <span
+                className={`${
+                  amountInCart <= 0 ? "hidden" : "block"
+                } absolute -translate-y-3 translate-x-3 items-start justify-center rounded-md 
+                bg-brand-base px-2 py-0.5 text-sm font-medium text-brand-light`}
+              >
+                {amountInCart}
+              </span>
+            </Link>
+          </li>
         </ul>
       </aside>
 
       {/* DESKTOP MENU */}
       <ul
-        className="relative row-start-1 hidden w-full
-        justify-between text-sm md:col-start-2 md:ml-4 md:flex"
+        className="relative row-start-1 hidden w-full justify-between 
+        text-sm md:col-start-2 md:ml-4 md:flex"
       >
         {routes.map((route) => {
           return (
             <li key={route.name} className="group relative pb-1">
               <Link
+                as={route.path}
                 href={route.path}
                 className={`${
                   currentPage === route.path
