@@ -13,7 +13,7 @@ import {
   ProductCard,
   ProductCardSkeleton,
 } from "@/components";
-import { getPopularProducts } from "@/api-layer/stripe";
+import { getPopularProducts } from "@/libs/stripe";
 
 export default function Home() {
   const { whyChooseUs, testimonials } = homeData;

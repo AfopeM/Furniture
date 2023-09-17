@@ -21,19 +21,21 @@ export const useCart = create<CartProp>()(
 
       totalPrice: () => {
         const price = get().cart.reduce(
-          (acc, item) => acc + item.amount * item.price.amount,
+          (acc, item) => acc + item.quantity * item.price.amount,
           0
         );
         return price;
       },
 
       cartLength: () => {
-        const length = get().cart.reduce((acc, item) => acc + item.amount, 0);
+        const length = get().cart.reduce((acc, item) => acc + item.quantity, 0);
         return length;
       },
 
       productAmount: (productId) => {
-        const amount = get().cart.find((item) => item.id === productId)?.amount;
+        const amount = get().cart.find(
+          (item) => item.id === productId
+        )?.quantity;
         return amount || 0;
       },
 
@@ -52,7 +54,7 @@ export const useCart = create<CartProp>()(
       increase: (productId) => {
         set((state) => {
           state.cart.forEach((item) => {
-            if (item.id === productId) item.amount++;
+            if (item.id === productId) item.quantity++;
           });
           return { ...state };
         });
@@ -62,10 +64,10 @@ export const useCart = create<CartProp>()(
         set((state) => {
           const newCart = state.cart
             .map((item) => {
-              if (item.id === productId) item.amount--;
+              if (item.id === productId) item.quantity--;
               return item;
             })
-            .filter((item) => item.amount >= 1);
+            .filter((item) => item.quantity >= 1);
 
           return { ...state, cart: newCart };
         });

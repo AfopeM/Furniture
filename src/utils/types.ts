@@ -16,5 +16,5 @@ export interface ProductDetailProp extends ProductSnippetProp {
 }
 
 export interface CartItemsProp extends ProductSnippetProp {
-  amount: number;
+  quantity: number;
 }

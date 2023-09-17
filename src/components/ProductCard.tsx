@@ -1,5 +1,6 @@
 "use client";
 import { BlurImage } from ".";
+import { ToCart } from "@/components";
 import { motion } from "framer-motion";
 import { currencyFormat } from "@/utils";
 import { useCart } from "@/libs/zustand";
@@ -16,11 +17,11 @@ interface AnimateProductSnippetProp extends ProductSnippetProp {
 }
 
 export function ProductCard({
-  image,
-  name,
-  price,
-  type,
   id,
+  type,
+  name,
+  image,
+  price,
   index,
 }: AnimateProductSnippetProp) {
   const router = useRouter();
@@ -51,8 +52,8 @@ export function ProductCard({
       name,
       type,
       price,
-      amount: 1,
       image,
+      quantity: 1,
     };
     addToCart(addProduct);
   }
@@ -143,45 +144,14 @@ export function ProductCard({
             {currencyFormat(price.amount)}
           </span>
 
-          {productAmount <= 0 ? (
-            <button
-              type="button"
-              onClick={() => handleAddToCart()}
-              className="brand-ease col-span-3 mx-auto h-3/4 w-3/4 rounded-md bg-brand-base/80
-              font-oswald text-lg font-light capitalize lg:hidden"
-            >
-              add to cart
-            </button>
-          ) : (
-            <div
-              className="col-span-3 mx-auto grid h-3/4 w-3/4 grid-cols-4 
-              items-center justify-center lg:hidden"
-            >
-              <button
-                type="button"
-                onClick={() => decrease(id)}
-                className="brand-ease h-full rounded-l-lg bg-brand-base/30 font-bold 
-                  text-brand-base hover:bg-brand-base hover:text-brand-light"
-              >
-                <FontAwesomeIcon icon={faMinus} />
-              </button>
-              <span
-                className="brand-ease col-span-2 col-start-2 flex h-full items-center 
-                  justify-center bg-brand-light/10 text-brand-light"
-              >
-                {productAmount}
-              </span>
-
-              <button
-                type="button"
-                onClick={() => increase(id)}
-                className="brand-ease h-full rounded-r-lg bg-brand-base/30 font-bold   
-                text-brand-base hover:bg-brand-base hover:text-brand-light/90"
-              >
-                <FontAwesomeIcon icon={faPlus} />
-              </button>
-            </div>
-          )}
+          <ToCart
+            id={id}
+            size="sm"
+            name={name}
+            type={type}
+            price={price}
+            image={image}
+          />
         </div>
       </div>
     </motion.article>

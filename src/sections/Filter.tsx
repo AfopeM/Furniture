@@ -1,9 +1,9 @@
 "use client";
 import { useFetchProducts } from "@/hooks";
-import { useReducer, useState, useEffect } from "react";
 import type { ProductDetailProp } from "@/utils/types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useReducer, useState, useEffect } from "react";
 import { ProductCard, ProductCardSkeleton } from "@/components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSortDown } from "@fortawesome/free-solid-svg-icons";
 interface FilterOptionsProp {
   name: string;

@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { stripeObj } from "@/api-layer/stripe";
+import { stripeObj } from "@/libs/stripe";
 import type { ProductSnippetProp } from "@/utils/types";
 
 export async function GET() {
