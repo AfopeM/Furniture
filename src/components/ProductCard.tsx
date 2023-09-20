@@ -3,13 +3,9 @@ import { BlurImage } from ".";
 import { ToCart } from "@/components";
 import { motion } from "framer-motion";
 import { currencyFormat } from "@/utils";
-import { useCart } from "@/libs/zustand";
-import { useUpdateClient } from "@/hooks";
 import { useRouter } from "next/navigation";
 import type { ProductSnippetProp } from "@/utils/types";
 import { cardVariant } from "@/libs/framer-motion/motion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { useViewedProducts } from "@/libs/zustand/useViewedProduct";
 
 interface AnimateProductSnippetProp extends ProductSnippetProp {
@@ -40,24 +36,6 @@ export function ProductCard({
     router.push(`/product/${id}`);
   }
 
-  // INCREASE, DECREASE AND ADD PRODUCT TO CART
-  const { addToCart, increase, decrease } = useCart((state) => state);
-  const productAmount = useUpdateClient(
-    useCart((state) => state.productAmount(id))
-  );
-
-  function handleAddToCart() {
-    const addProduct = {
-      id,
-      name,
-      type,
-      price,
-      image,
-      quantity: 1,
-    };
-    addToCart(addProduct);
-  }
-
   return (
     <motion.article
       variants={cardVariant(index, 0.2)}
@@ -65,47 +43,6 @@ export function ProductCard({
       animate="animate"
       className="group relative"
     >
-      {/* ADD TO CART BTN */}
-      <div
-        className="brand-ease absolute right-0 top-6 w-10 overflow-hidden 
-        rounded-r-2xl bg-brand-dark group-hover:translate-x-10"
-      >
-        {productAmount <= 0 ? (
-          <button
-            type="button"
-            onClick={() => handleAddToCart()}
-            className="brand-ease hidden h-16 w-full items-center justify-center 
-            hover:bg-brand-base lg:flex"
-          >
-            <FontAwesomeIcon icon={faPlus} className="text-xl" />
-          </button>
-        ) : (
-          <div className="hidden h-40 grid-rows-4 items-center lg:grid">
-            <button
-              type="button"
-              onClick={() => increase(id)}
-              className="brand-ease h-full bg-brand-base/20 font-bold text-brand-base 
-              hover:bg-brand-base hover:text-brand-light/90"
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-            <span
-              className="brand-ease row-span-2 flex h-full items-center justify-center 
-             text-xl text-brand-light"
-            >
-              {productAmount}
-            </span>
-            <button
-              type="button"
-              onClick={() => decrease(id)}
-              className="brand-ease h-full bg-brand-base/20 font-bold text-brand-base 
-            hover:bg-brand-base hover:text-brand-light"
-            >
-              <FontAwesomeIcon icon={faMinus} />
-            </button>
-          </div>
-        )}
-      </div>
       <div
         className={`z-10 h-96 w-72 cursor-pointer overflow-hidden rounded-2xl bg-brand-dark`}
       >
@@ -114,7 +51,7 @@ export function ProductCard({
           type="button"
           onClick={() => handleAddToViewed()}
           aria-label={`${name} image button`}
-          className="relative h-[65%] w-full overflow-hidden lg:h-[70%]"
+          className="relative h-[65%] w-full overflow-hidden"
         >
           <BlurImage
             imgSrc={image}
@@ -126,7 +63,7 @@ export function ProductCard({
         {/* CONTENT */}
         <div
           className={`grid-row-2 lg:grid-row-1 grid h-[35%] w-full grid-cols-3 items-center 
-          px-6 py-4 lg:h-[30%] lg:px-6`}
+          px-6 py-4 lg:px-6`}
         >
           <div className="col-span-2">
             <p className="font-fira text-xs uppercase tracking-widest text-brand-gray">

@@ -58,7 +58,9 @@ export default function Product({
 
       <main className="space-y-8">
         {error ? (
-          <p>We do not sell this furniture</p>
+          <div className="flex h-96 w-full items-center justify-center text-3xl text-brand-dark">
+            We do not sell this furniture
+          </div>
         ) : content ? (
           <>
             {/* PRODUCT TITLE */}
@@ -202,29 +204,31 @@ export default function Product({
 
         <div className="mt-24 space-y-12">
           {/* RELATED PRODUCTS */}
-          <section className="brand-px space-y-6">
-            <div className="rounded-xl bg-brand-dark/10 px-12 py-6 text-center md:text-start">
-              <Title textSize="text-3xl" colour="text-brand-dark">
-                Related Products
-              </Title>
-              <p className="pt-2 font-fira font-light tracking-wide text-brand-dark/50">
-                You many also like these...
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8 px-8">
-              {content
-                ? content.relatedProducts.map((product, i) => {
-                    return (
-                      <ProductCard key={product.id} index={i} {...product} />
-                    );
-                  })
-                : Array(3)
-                    .fill(1)
-                    .map((item, i) => {
-                      return <ProductCardSkeleton key={item + i} />;
-                    })}
-            </div>
-          </section>
+          {error ? null : (
+            <section className="brand-px space-y-6">
+              <div className="rounded-xl bg-brand-dark/10 px-12 py-6 text-center md:text-start">
+                <Title textSize="text-3xl" colour="text-brand-dark">
+                  Related Products
+                </Title>
+                <p className="pt-2 font-fira font-light tracking-wide text-brand-dark/50">
+                  You many also like these...
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-8 px-8">
+                {content
+                  ? content.relatedProducts.map((product, i) => {
+                      return (
+                        <ProductCard key={product.id} index={i} {...product} />
+                      );
+                    })
+                  : Array(3)
+                      .fill(1)
+                      .map((item, i) => {
+                        return <ProductCardSkeleton key={item + i} />;
+                      })}
+              </div>
+            </section>
+          )}
 
           {/* VIEWED PRODUCTS */}
           <section className="brand-px space-y-6">

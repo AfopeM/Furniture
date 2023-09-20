@@ -36,28 +36,30 @@ export default function ToCart({
         productAmount <= 0 ? (
           <button
             type="button"
+            aria-label={`add ${name} to cart`}
             onClick={() => handleAddToCart()}
-            className="brand-ease col-span-3 mx-auto h-3/4 w-3/4 rounded-md bg-brand-base/80
-      font-oswald text-lg font-light capitalize lg:hidden"
+            className="brand-ease lghidden col-span-3 mx-auto h-3/4 w-3/4 rounded-md
+            bg-brand-base/60 font-oswald text-lg font-light capitalize lg:hover:bg-brand-base"
           >
             add to cart
           </button>
         ) : (
           <div
-            className="col-span-3 mx-auto grid h-3/4 w-3/4 grid-cols-4
-      items-center justify-center lg:hidden"
+            className="lg:group-hover: col-span-3 mx-auto grid h-3/4 w-3/4
+            grid-cols-4 items-center justify-center"
           >
             <button
               type="button"
               onClick={() => decrease(id)}
+              aria-label={`remove 1 ${name} from cart`}
               className="brand-ease h-full rounded-l-lg bg-brand-base/30 font-bold
-          text-brand-base hover:bg-brand-base hover:text-brand-light"
+              text-brand-base hover:bg-brand-base hover:text-brand-light"
             >
               <FontAwesomeIcon icon={faMinus} />
             </button>
             <span
               className="brand-ease col-span-2 col-start-2 flex h-full items-center
-          justify-center bg-brand-light/10 text-brand-light"
+              justify-center bg-brand-light/10 text-brand-light"
             >
               {productAmount}
             </span>
@@ -65,8 +67,9 @@ export default function ToCart({
             <button
               type="button"
               onClick={() => increase(id)}
+              aria-label={`add 1 ${name} to cart`}
               className="brand-ease h-full rounded-r-lg bg-brand-base/30 font-bold
-        text-brand-base hover:bg-brand-base hover:text-brand-light/90"
+              text-brand-base hover:bg-brand-base hover:text-brand-light/90"
             >
               <FontAwesomeIcon icon={faPlus} />
             </button>
@@ -82,6 +85,7 @@ export default function ToCart({
               <button
                 type="button"
                 onClick={() => decrease(id)}
+                aria-label={`remove 1 ${name} from cart`}
                 className="brand-ease h-full bg-brand-base/20 font-bold text-brand-base 
         hover:bg-brand-base hover:text-brand-light"
               >
@@ -97,6 +101,7 @@ export default function ToCart({
               <button
                 type="button"
                 onClick={() => increase(id)}
+                aria-label={`add 1 ${name} to cart`}
                 className="brand-ease h-full bg-brand-base/20 font-bold text-brand-base 
         hover:bg-brand-base hover:text-brand-light/90"
               >
@@ -107,6 +112,7 @@ export default function ToCart({
             <button
               type="button"
               onClick={() => handleAddToCart()}
+              aria-label={`add ${name} to cart`}
               className="brand-ease h-full w-full bg-brand-base/20 font-oswald text-xl font-light 
       capitalize text-brand-base hover:bg-brand-base hover:text-brand-light lg:text-2xl"
             >

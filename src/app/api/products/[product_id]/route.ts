@@ -6,13 +6,13 @@ export async function GET(
   req: Request,
   { params }: { params: { product_id: string } }
 ) {
-  try {
-    const id = params.product_id;
-    const inventory = await stripeObj.products.list({
-      expand: ["data.default_price"],
-      limit: 15,
-    });
+  const id = params.product_id;
+  const inventory = await stripeObj.products.list({
+    expand: ["data.default_price"],
+    limit: 15,
+  });
 
+  try {
     // Get Product
     const stripeProduct = inventory.data.find((item) => item.id === id);
 
@@ -59,6 +59,6 @@ export async function GET(
   } catch (error) {
     const e = `ServerError:${error}`;
     console.log(e);
-    return new Response(JSON.stringify(e), { status: 500 });
+    return new Response(JSON.stringify(error), { status: 500 });
   }
 }

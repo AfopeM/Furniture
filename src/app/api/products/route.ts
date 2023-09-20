@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { stripeObj } from "@/libs/stripe";
-import type { ProductSnippetProp } from "@/utils/types";
+import type { ProductDetailProp } from "@/utils/types";
 
 export async function GET() {
   try {
@@ -15,12 +15,15 @@ export async function GET() {
         name: item.name,
         desc: item.description,
         image: item.images[0],
-        type: (item.metadata as Stripe.Metadata).type,
+        type: (item?.metadata as Stripe.Metadata).type,
+        origin: (item?.metadata as Stripe.Metadata).origin,
+        material: (item?.metadata as Stripe.Metadata).material,
+        dimension: (item?.metadata as Stripe.Metadata).dimensions,
         price: {
           id: (item.default_price as Stripe.Price).id,
           amount: (item.default_price as Stripe.Price).unit_amount,
         },
-      } as ProductSnippetProp;
+      } as ProductDetailProp;
     });
 
     return new Response(JSON.stringify(products), { status: 200 });

@@ -1,5 +1,6 @@
 "use client";
-import { useFetchProducts } from "@/hooks";
+import useSWR from "swr";
+import { getAllProducts } from "@/libs/stripe";
 import type { ProductDetailProp } from "@/utils/types";
 import { useReducer, useState, useEffect } from "react";
 import { ProductCard, ProductCardSkeleton } from "@/components";
@@ -26,9 +27,9 @@ const filter = {
 };
 
 const FILTER_ACTIONS = {
-  SELECT: "select",
   PICK: "pick",
   RESET: "reset",
+  SELECT: "select",
   FILTER: "filter",
 };
 
@@ -44,8 +45,12 @@ type FilterPayload = {
 };
 
 export default function Filter() {
-  const initialProducts = useFetchProducts();
-  const [products, setProducts] = useState(initialProducts);
+  const {
+    error,
+    isLoading,
+    data: initialProducts,
+  } = useSWR("allProducts", getAllProducts);
+  const [products, setProducts] = useState([] as ProductDetailProp[]);
   const [openFilterMenu, setOpenFilterMenu] = useState(false);
   const [optionList, setOptionList] = useState<FilterOptionsProp[] | undefined>(
     undefined
@@ -99,7 +104,7 @@ export default function Filter() {
             item[1].isSelected = false;
           });
 
-          setProducts(initialProducts);
+          setProducts(initialProducts as ProductDetailProp[]);
 
           return { ...state };
 
@@ -141,45 +146,50 @@ export default function Filter() {
     filter
   );
 
-  //UPDATE OPTIONLIST AND PRODUCTS
+  //CREATE OPTIONLIST AND UPDATED FILTERABLE PRODUCTS LIST
   useEffect(() => {
     const setUp = () => {
-      setProducts(initialProducts);
+      setProducts(initialProducts as ProductDetailProp[]);
 
-      const list = initialProducts?.reduce((acc, product) => {
-        if (acc.length < 1) {
-          Object.entries(filter).map((f) => {
-            const filterName = f[0];
+      const list = (initialProducts as ProductDetailProp[]).reduce(
+        (acc, product) => {
+          if (acc.length < 1) {
+            Object.entries(filter).map((f) => {
+              const filterName = f[0];
 
-            const newItems = {
-              name: filterName,
-              list: [
-                [product[filterName as keyof ProductDetailProp]].toString(),
-              ],
-            };
+              const newItems = {
+                name: filterName,
+                list: [
+                  [product[filterName as keyof ProductDetailProp]].toString(),
+                ],
+              };
 
-            acc.push(newItems);
-          });
-          return acc;
-        }
-
-        acc.map((opt) => {
-          const val = product[opt.name as keyof ProductDetailProp];
-          if (!opt.list.includes(val as keyof ProductDetailProp)) {
-            opt.list.push(val as keyof ProductDetailProp);
+              acc.push(newItems);
+            });
+            return acc;
           }
-        });
 
-        return acc;
-      }, [] as FilterOptionsProp[]);
+          acc.map((opt) => {
+            const val = product[opt.name as keyof ProductDetailProp];
+            if (!opt.list.includes(val as keyof ProductDetailProp)) {
+              opt.list.push(val as keyof ProductDetailProp);
+            }
+          });
+
+          return acc;
+        },
+        [] as FilterOptionsProp[]
+      );
 
       setOptionList(list);
     };
-    if (initialProducts !== null) setUp();
+
+    if (initialProducts) setUp();
   }, [initialProducts]);
 
   return (
     <>
+      {/* FILTER */}
       <aside className="brand-px sticky top-8 z-20">
         {/* DESKTOP FILTER */}
         <form
@@ -289,6 +299,7 @@ export default function Filter() {
           {/* FILTER BUTTONS */}
           <button
             type="submit"
+            aria-label="reset products"
             onClick={(e) =>
               dispatch({
                 type: FILTER_ACTIONS.RESET,
@@ -305,6 +316,7 @@ export default function Filter() {
 
           <button
             type="submit"
+            aria-label="filter products"
             onClick={(e) =>
               dispatch({
                 type: FILTER_ACTIONS.FILTER,
@@ -328,6 +340,7 @@ export default function Filter() {
           {/* MOBILE FILTER MENU */}
           <button
             type="button"
+            aria-label="open/close mobile filter menu"
             onClick={() => setOpenFilterMenu((prev) => !prev)}
             className={`${
               openFilterMenu
@@ -438,14 +451,16 @@ export default function Filter() {
             {/* FILTER BUTTONS */}
             <button
               type="submit"
-              onClick={(e) =>
+              aria-label="reset products"
+              onClick={(e) => {
                 dispatch({
                   type: FILTER_ACTIONS.RESET,
                   payload: {
                     choice: e,
                   },
-                })
-              }
+                });
+                setOpenFilterMenu(false);
+              }}
               className="brand-ease w-full rounded-lg bg-brand-base/50 px-4 
               py-2 font-fira font-bold capitalize tracking-widest hover:bg-brand-base"
             >
@@ -454,14 +469,16 @@ export default function Filter() {
 
             <button
               type="submit"
-              onClick={(e) =>
+              aria-label="filter products"
+              onClick={(e) => {
                 dispatch({
                   type: FILTER_ACTIONS.FILTER,
                   payload: {
                     choice: e,
                   },
-                })
-              }
+                });
+                setOpenFilterMenu(false);
+              }}
               className="brand-ease w-full rounded-lg bg-brand-base/50 px-4 
               py-2 font-fira font-bold capitalize tracking-widest hover:bg-brand-base"
             >
@@ -473,13 +490,15 @@ export default function Filter() {
 
       {/* PRODUCTS */}
       <section className="brand-px flex min-h-[250px] flex-wrap justify-center gap-x-16 gap-y-12 pb-8">
-        {products === null ? (
+        {error ? (
+          <p className="text-3xl text-brand-dark">No Products were found</p>
+        ) : isLoading ? (
           Array(8)
             .fill(0)
-            .map((item, i) => {
-              return <ProductCardSkeleton key={item + i} />;
-            })
-        ) : products.length > 0 ? (
+            .map((item, i) => <ProductCardSkeleton key={item + i} />)
+        ) : null}
+
+        {products.length > 0 ? (
           products.map((product, i) => {
             return <ProductCard key={i} index={i} {...product} />;
           })
