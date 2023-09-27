@@ -1,6 +1,6 @@
 "use client";
 import { useCart } from "@/libs/zustand";
-import { CartCards } from "@/components";
+import { CartCard } from "@/components";
 import { currencyFormat } from "@/utils";
 import { useUpdateClient } from "@/hooks";
 import { useEffect, useState } from "react";
@@ -44,7 +44,7 @@ export default function Cart({ isCartOpen }: CartProp) {
       >
         {cart.length > 0 ? (
           cart.map((items) => {
-            return <CartCards key={items.id} {...items} />;
+            return <CartCard key={items.id} {...items} />;
           })
         ) : (
           <p className="font-fira text-3xl font-light capitalize tracking-widest">
