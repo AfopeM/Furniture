@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Furniture E-Commerce Website
 
-## Getting Started
+Welcome to the documentation for the Furniture E-Commerce website, a platform dedicated to selling luxurious furniture. This README will provide an in-depth overview of the project, its features, and how I completed it.
 
-First, run the development server:
+**Live Site:** [Furniture](https://furniturex.netlify.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Introduction
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The Furniture E-Commerce website was designed to offer an elegant and seamless shopping experience for customers looking to purchase high-end furniture. It leverages modern web development technologies and APIs to provide a smooth user interface.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ScreenShot
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![Home_Screenshot](/public/screenshot.png)
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Complete Purchase**
+  Customers can now complete their purchase by providing payment information and shipping details in the checkout process. We use the Stripe API to securely handle payments. Once the payment is successful, the order is confirmed, and the customer is re-directed to successful purchase page displaying the products they purchased and other relevant details.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Fetching Product Information**
+  The website fetches product information from the [Stripe API](https://stripe.com/en-ca). This means that product details, images, prices, and availability are always up-to-date.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Local Storage with Zustand**
+  To provide a persistent shopping cart experience, I use Zustand to manage the cart's state. This state management library stores the cart data in local storage, ensuring that the cart contents persist even when users close or refresh the browser.
 
-## Deploy on Vercel
+- **Cart Functionality**
+  Customers can add and remove products from their shopping cart. Allowing users to review their selections and proceed to checkout when they are ready to make a purchase.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Display Related Products**
+  A products page related products are fetched from the Stripe API based on the category or characteristics of the currently viewed product.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Smooth Page-to-Page Transition with Next.js**
+  I've implemented the website using Next.js, a React framework. This ensures fast and smooth page transitions because the routing is handled seamlessly, making navigation throughout the website feel natural.
+
+## Techologies Used
+
+- [Tailwind](https://tailwindcss.com/)
+- [React](https://react.dev/)
+- [Next.js](https://nextjs.org/)
+- [Zustand](https://zustand-demo.pmnd.rs/)
+- [Stripe API](https://stripe.com/en-ca)

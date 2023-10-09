@@ -70,12 +70,17 @@ export default function Cart() {
             >
               Payment Details
             </Title>
-            <p className="font-fira text-brand-gray">
-              Complete your purchase here!
+            <p className="font-fira leading-relaxed text-brand-gray">
+              Complete your purchase here! <br />
+              Please use{" "}
+              <span className="rounded bg-red-500/50 px-2 py-1 tracking-wide text-brand-light/75">
+                4242 4242 4242 4242
+              </span>{" "}
+              as card number
             </p>
           </div>
 
-          {/* <p className=" rounded-md bg-red-500 p-2 font-fira">
+          {/* <p className="rounded-md bg-red-500 p-2 font-fira">
             Please do not use your actual card number to make a purchase. Use
             <span> 4242 4242 4242 4242</span>
           </p> */}
@@ -92,8 +97,8 @@ export default function Cart() {
                 : "bg-brand-base/90 text-brand-light"
             } brand-ease h-16 w-full max-w-4xl rounded-lg bg-brand-base/50 
             text-xl font-bold uppercase tracking-widest md:h-20 md:text-3xl
-            lg:bg-brand-base/50 lg:text-brand-light/80 lg:hover:bg-brand-base/90 
-            lg:hover:text-brand-light`}
+            lg:bg-brand-base/50 lg:px-4 lg:text-2xl 
+            lg:text-brand-light/80 lg:hover:bg-brand-base/90 lg:hover:text-brand-light`}
           >
             {totalPrice > 0
               ? `pay ${currencyFormat(totalPrice)[0]}`

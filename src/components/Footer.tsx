@@ -12,7 +12,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="brand-px mt-24 relative bg-brand-dark pb-8 pt-16 
+      className="brand-px relative mt-24 bg-brand-dark pb-8 pt-16 
       text-center text-brand-gray md:text-start"
     >
       <Image
@@ -33,8 +33,8 @@ export default function Footer() {
           <Title textSize="text-xl" colour="text-brand-light">
             Furniture
           </Title>
-          <p className="w-full max-w-md pt-2 font-fira font-light capitalize">
-            we are dedicated to creating the highest quality luxury furniture
+          <p className="w-full max-w-md pt-2 font-fira font-light">
+            We are dedicated to creating the highest quality luxury furniture
             that combines style, comfort, and functionality. Our pieces are
             designed with the utmost care and attention to detail, using only
             the finest materials and craftsmanship.
