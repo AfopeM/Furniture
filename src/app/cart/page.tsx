@@ -58,8 +58,8 @@ export default function Cart() {
 
         {/* PAY BUTTON */}
         <section
-          className="text-light flex w-full max-w-3xl flex-col gap-y-4 
-          rounded-lg bg-brand-dark p-8 text-center md:text-start"
+          className="text-light flex w-full max-w-3xl flex-col 
+          gap-y-4 rounded-lg bg-brand-dark p-8 text-center md:text-start"
         >
           {/* TITLE */}
           <div>
@@ -90,9 +90,9 @@ export default function Cart() {
               totalPrice <= 0
                 ? "bg-brand-base/50 text-brand-light/80"
                 : "bg-brand-base/90 text-brand-light"
-            } brand-ease mx-auto h-16 w-full max-w-lg rounded-lg bg-brand-base/50
-            text-xl font-bold uppercase tracking-widest md:mx-0 md:text-2xl 
-            lg:bg-brand-base/50 lg:text-brand-light/80 lg:hover:bg-brand-base/90
+            } brand-ease h-16 w-full max-w-4xl rounded-lg bg-brand-base/50 
+            text-xl font-bold uppercase tracking-widest md:h-20 md:text-3xl
+            lg:bg-brand-base/50 lg:text-brand-light/80 lg:hover:bg-brand-base/90 
             lg:hover:text-brand-light`}
           >
             {totalPrice > 0

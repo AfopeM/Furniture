@@ -19,7 +19,7 @@ export default function CartCard({
 
   return (
     <article
-      className="brand-ease group relative grid h-28 grid-cols-4 items-center 
+      className="brand-ease group relative grid h-32 grid-cols-4 items-center 
       justify-center overflow-hidden rounded-lg bg-brand-dark md:h-36 lg:h-40"
     >
       {/* CLOSE BTN */}

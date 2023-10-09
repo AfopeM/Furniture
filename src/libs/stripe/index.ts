@@ -66,3 +66,11 @@ export const getProduct = async (product_id: string) => {
     throw error;
   }
 };
+
+export const fetchSessionId = async (session_id: string) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_URL}/api/session/${session_id}`
+  );
+  const data = await res.json();
+  return data;
+};

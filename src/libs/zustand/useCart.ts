@@ -12,6 +12,7 @@ interface CartProp {
   increase: (productId: string) => void;
   decrease: (productId: string) => void;
   remove: (productId: string) => void;
+  resetCart: () => void;
 }
 
 export const useCart = create<CartProp>()(
@@ -77,6 +78,12 @@ export const useCart = create<CartProp>()(
         set((state) => {
           const newCart = state.cart.filter((item) => item.id !== productId);
           return { ...state, cart: newCart };
+        });
+      },
+
+      resetCart: () => {
+        set((state) => {
+          return { ...state, cart: [] as CartItemsProp[] };
         });
       },
     }),
